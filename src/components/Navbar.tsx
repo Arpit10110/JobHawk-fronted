@@ -12,7 +12,7 @@ const Navbar = () => {
                 <Link className='hover:scale-[1.03] transition-all text-gray-700'  href={"/"} >Home</Link>
                 <Link className='hover:scale-[1.03] transition-all text-gray-700'  href={"/pricing"} >Pricing</Link>
                 <Link className='hover:scale-[1.03] transition-all text-gray-700'  href={"/create-alert"} >Create Alert</Link>
-                <Link className='bg-[#e624ff] text-white rounded-[10px] px-[1rem] py-[0.3rem] flex items-center hover:scale-[1.03] transition-all  '  href={"/"} >LogIn</Link>
+                <Link className='bg-[#2B7EFE] text-white rounded-[10px] px-[1rem] py-[0.3rem] flex items-center hover:scale-[1.03] transition-all  '  href={"/"} >LogIn</Link>
             </div>
         </nav>
     </>
