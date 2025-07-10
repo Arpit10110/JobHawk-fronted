@@ -23,6 +23,7 @@ import React, {
     backButtonText?: string;
     nextButtonText?: string;
     disableStepIndicators?: boolean;
+    step1checker?: () => boolean; // Function to check step 1 conditions
     renderStepIndicator?: (props: {
       step: number;
       currentStep: number;
@@ -45,6 +46,7 @@ import React, {
     nextButtonText = "Continue",
     disableStepIndicators = false,
     renderStepIndicator,
+    step1checker= () => {return true }, // Default to an empty function if not provided
     ...rest
   }: StepperProps) {
     const [currentStep, setCurrentStep] = useState<number>(initialStep);
@@ -70,8 +72,13 @@ import React, {
       }
     };
   
-    const handleNext = () => {
-      if (!isLastStep) {
+    const handleNext = async() => {
+      console.log("Step 1 data-->", currentStep);
+      let step1pass = false;
+      if (currentStep === 1) {
+       step1pass = await step1checker()
+      }
+      if (!isLastStep && step1pass) {
         setDirection(1);
         updateStep(currentStep + 1);
       }

@@ -9,9 +9,27 @@ const StepperForm = () => {
   const [selectTime, setselectTime] = useState<string>("");
   const [selectampm, setselectampm] = useState<string>("");
   const [selectNumberofJobs, setselectNumberofJobs] = useState<string>("");
+
+// step1 checker 
+  const step1checker = ()=>{
+    if (selectedJobs.length === 0) {
+      alert("Please select at least one job title.");
+      return false;
+    }
+    if (selectedLocation.length === 0) {
+      alert("Please select at least one job location.");
+      return false;
+    }
+    if (selecteexp === "") {
+      alert("Please select your experience level.");
+      return false;
+    }
+    return true;
+  }
+
   return (
     <>
-        <Stepper    initialStep={1} onStepChange={(step) => {console.log(step); }} onFinalStepCompleted={() => console.log("All steps completed!")} backButtonText="Previous" nextButtonText="Next">
+        <Stepper step1checker = {step1checker}   initialStep={1} onStepChange={(step) => {console.log(step); }} onFinalStepCompleted={() => console.log("All steps completed!")} backButtonText="Previous" nextButtonText="Next">
           <Step> 
             <div className="flex flex-col gap-6">
               <Autocomplete
