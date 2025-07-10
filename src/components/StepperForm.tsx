@@ -5,86 +5,142 @@ const StepperForm = () => {
   const [selectedJobs, setSelectedJobs] = useState<{ title: string }[]>([]);
   const [selectedLocation, setSelectedLocation] = useState<string[]>(["Remote"]);
   const [selecteexp, setSelecteexp] = useState<string>("");
-
-
+  const [email,Setemail] = useState<string>("");
+  const [selectTime, setselectTime] = useState<string>("");
+  const [selectampm, setselectampm] = useState<string>("");
+  const [selectNumberofJobs, setselectNumberofJobs] = useState<string>("");
   return (
     <>
         <Stepper    initialStep={1} onStepChange={(step) => {console.log(step); }} onFinalStepCompleted={() => console.log("All steps completed!")} backButtonText="Previous" nextButtonText="Next">
-        <Step> 
-          <div className="flex flex-col gap-6">
-            <Autocomplete
-              multiple
-              id="job-title-selector"
-              options={jobTitles}
-              getOptionLabel={(option) => option.title}
-              onChange={(event, newValue) => {
-                if (newValue.length <= 3) {
-                  setSelectedJobs(newValue);
-                }
-              }}
-              value={selectedJobs}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  variant="standard"
-                  label="Select up to 3 Job Titles"
-                  placeholder="e.g. Frontend Developer"
-                  required={true}
-                />
-              )}
-              filterSelectedOptions
-              disableCloseOnSelect
-              
-            />
-             <Autocomplete
-              multiple
-              id="job-location-selector"
-              options={jobLocations}
-              getOptionLabel={(option) => option}
-              onChange={(event, newValue) => {
-                if (newValue.length <= 4) {
-                  setSelectedLocation(newValue);
-                }
-              }}
-              value={selectedLocation}
-              defaultValue={["Remote"]}              
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  variant="standard"
-                  label="Job Location"
-                  placeholder="e.g. Bengaluru or Remote"
-                  required={true}
-                />
-              )}
-            />
-             <Autocomplete
-              id="exp-selector"
-              options={expoption}
-              getOptionLabel={(option) => option}
-              onChange={(event, newValue) => {
-                setSelecteexp(newValue || "");
-              }}
-              value={selecteexp}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  variant="standard"
-                  label="Experience Level"
-                  placeholder="Select your experience level"
-                  required={true}
-                />
-              )}
-            />
-          </div>
-        </Step>
           <Step> 
-            <h2>Welcome to the React Bits stepper!</h2>
-            <p>Check out the next step!</p>
+            <div className="flex flex-col gap-6">
+              <Autocomplete
+                multiple
+                id="job-title-selector"
+                options={jobTitles}
+                getOptionLabel={(option) => option.title}
+                onChange={(event, newValue) => {
+                  if (newValue.length <= 3) {
+                    setSelectedJobs(newValue);
+                  }
+                }}
+                value={selectedJobs}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    variant="standard"
+                    label="Select up to 3 Job Titles"
+                    placeholder="e.g. Frontend Developer"
+                    required={true}
+                  />
+                )}
+                filterSelectedOptions
+                disableCloseOnSelect
+              />
+              <Autocomplete
+                multiple
+                id="job-location-selector"
+                options={jobLocations}
+                getOptionLabel={(option) => option}
+                onChange={(event, newValue) => {
+                  if (newValue.length <= 4) {
+                    setSelectedLocation(newValue);
+                  }
+                }}
+                value={selectedLocation}
+                defaultValue={["Remote"]}              
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    variant="standard"
+                    label="Job Location"
+                    placeholder="e.g. Bengaluru or Remote"
+                    required={true}
+                  />
+                )}
+              />
+              <Autocomplete
+                id="exp-selector"
+                options={expoption}
+                getOptionLabel={(option) => option}
+                onChange={(event, newValue) => {
+                  setSelecteexp(newValue || "");
+                }}
+                value={selecteexp}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    variant="standard"
+                    label="Experience Level"
+                    placeholder="Select your experience level"
+                    required={true}
+                  />
+                )}
+              />
+            </div>
           </Step>
           <Step> 
-            <h2>Welcome to the React Bits stepper!</h2>
-            <p>Check out the next step!</p>
+            <div className='flex flex-col gap-[1rem] ' >
+              <input className='' value={email} onChange={(e)=>Setemail(e.target.value)}  type="text" placeholder='Enter the email id'  />
+              <div className='flex w-full justify-between ' >
+                <Autocomplete
+                  className='!w-[40%] '
+                  id="time-selector1"
+                  options={timeoption}
+                  getOptionLabel={(option) => option}
+                  onChange={(event, newValue) => {
+                    setselectTime(newValue || "");
+                  }}
+                  value={selectTime}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      variant="standard"
+                      label="please select the time"
+                      placeholder="Select the time"
+                      required={true}
+                    />
+                  )}
+                />
+                <Autocomplete
+                  className='!w-[40%] '
+                  id="ampm-selector1"
+                  options={ampmoption}
+                  getOptionLabel={(option) => option}
+                  onChange={(event, newValue) => {
+                    setselectampm(newValue || "");
+                  }}
+                  value={selectampm}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      variant="standard"
+                      label="Select Am/PM "
+                      placeholder="Select Am/PM"
+                      required={true}
+                    />
+                  )}
+                />
+              </div>
+              <Autocomplete
+                  id="numberofjobs-selector"
+                  options={numberofjobsoption}
+                  getOptionLabel={(option) => option}
+                  onChange={(event, newValue) => {
+                    setselectNumberofJobs(newValue || "");
+                  }}
+                  value={selectNumberofJobs}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      variant="standard"
+                      label="select the number of jobs"
+                      placeholder="select the number of jobs"
+                      required={true}
+                    />
+                  )}
+                />
+            </div>
           </Step>
           <Step> 
             <h2>Welcome to the React Bits stepper!</h2>
@@ -186,4 +242,30 @@ const expoption =[
   '8 Years',
   '9 Years',
   '10 Years',
+]
+
+const timeoption =[
+  "1",
+  "2",
+  "3",
+  "4",
+  "5",
+  "6",
+  "7",
+  "8",
+  "9",
+  "10",
+  "11",
+  "12",
+]
+const ampmoption= [
+  "AM",
+  "PM"
+]
+const numberofjobsoption = [
+  "1",
+  "2",
+  "3",
+  "4",
+  "5",
 ]
