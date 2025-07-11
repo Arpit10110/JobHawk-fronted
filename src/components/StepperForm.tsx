@@ -12,6 +12,7 @@ const StepperForm = () => {
   const [selectTime, setselectTime] = useState<string>("");
   const [selectampm, setselectampm] = useState<string>("");
   const [selectNumberofJobs, setselectNumberofJobs] = useState<string>("");
+  const [selectJobType, setselectJobType] = useState<string>("");
   const [openloader, Setopenloader] = useState(false);
 
 // step1 checker 
@@ -44,6 +45,19 @@ const StepperForm = () => {
     }
     if (selecteexp === "") {
       toast.error("Please select your experience level.", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
+      return false;
+    }
+    if (selectJobType === "") {
+      toast.error("Please select your job type.", {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -215,36 +229,70 @@ const handleSubmit = async()=> {
                   />
                 )}
               />
-              <Autocomplete
-                sx={
-                  {
-                  '& .MuiInputBase-input':{
-                    fontSize: '1.1rem',
-                  },
-                  '& .MuiFormLabel-root':{
-                    fontSize: '1.1rem',
-                    fontWeight: '600',
-                    color:"black"
+              <div className='flex w-full justify-between' >
+                <Autocomplete
+                className='!w-[45%] '
+                  sx={
+                    {
+                    '& .MuiInputBase-input':{
+                      fontSize: '1.1rem',
+                    },
+                    '& .MuiFormLabel-root':{
+                      fontSize: '1.1rem',
+                      fontWeight: '600',
+                      color:"black"
+                    }
+                    }
                   }
+                  id="exp-selector"
+                  options={expoption}
+                  getOptionLabel={(option) => option}
+                  onChange={(event, newValue) => {
+                    setSelecteexp(newValue || "");
+                  }}
+                  value={selecteexp}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      variant="standard"
+                      label="Experience Level"
+                      placeholder="Select your experience level"
+                      required={true}
+                    />
+                  )}
+                />
+                <Autocomplete
+                className='!w-[45%] '
+                  sx={
+                    {
+                    '& .MuiInputBase-input':{
+                      fontSize: '1.1rem',
+                    },
+                    '& .MuiFormLabel-root':{
+                      fontSize: '1.1rem',
+                      fontWeight: '600',
+                      color:"black"
+                    }
+                    }
                   }
-                }
-                id="exp-selector"
-                options={expoption}
-                getOptionLabel={(option) => option}
-                onChange={(event, newValue) => {
-                  setSelecteexp(newValue || "");
-                }}
-                value={selecteexp}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    variant="standard"
-                    label="Experience Level"
-                    placeholder="Select your experience level"
-                    required={true}
-                  />
-                )}
-              />
+                  id="jobtype-selector"
+                  options={jobtypeoption}
+                  getOptionLabel={(option) => option}
+                  onChange={(event, newValue) => {
+                    setselectJobType(newValue || "");
+                  }}
+                  value={selectJobType}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      variant="standard"
+                      label="Job Type"
+                      placeholder="Select your job type"
+                      required={true}
+                    />
+                  )}
+                />
+              </div>
             </div>
           </Step>
           <Step> 
@@ -367,10 +415,12 @@ const handleSubmit = async()=> {
               <div className='w-[45%] flex flex-col gap-[1rem] ' >
                     <p className='font-semibold text-blue-500 text-[1.2rem] ' ><span className='font-bold text-black ' >💼 Experience:</span> {selecteexp}</p>
                     <p className='font-semibold text-blue-500 text-[1.2rem] ' ><span className='font-bold text-black ' >📧 Email:</span> {email}</p>
+                    <p className='font-semibold text-blue-500 text-[1.2rem] ' ><span className='font-bold text-black ' >👨‍💻 Job type:</span> {selectJobType}</p>
               </div>
               <div className='w-[45%] flex flex-col gap-[1rem]' >
                     <p className='font-semibold text-blue-500 text-[1.2rem] ' ><span className='font-bold text-black ' >🕒 Preferred Time:</span> Daily {selectTime}:00 {selectampm}</p>
                     <p className='font-semibold text-blue-500 text-[1.2rem] ' ><span className='font-bold text-black ' >📋 Jobs Per Day:</span> {selectNumberofJobs}</p>
+                   
               </div>
             </div>
           </div>
@@ -509,4 +559,8 @@ const numberofjobsoption = [
   "3",
   "4",
   "5",
+]
+const jobtypeoption = [
+  "Full-time",
+  "Internship",
 ]
