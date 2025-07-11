@@ -60,8 +60,8 @@ import React, {
   
     const updateStep = (newStep: number) => {
       setCurrentStep(newStep);
-      if (newStep > totalSteps) {
-        onFinalStepCompleted();
+      if (newStep >= totalSteps) {
+        console.log("Final step reached");
       } else {
         onStepChange(newStep);
       }
@@ -75,7 +75,7 @@ import React, {
     };
   
     const handleNext = async() => {
-      console.log("Step 1 data-->", currentStep);
+      console.log("Step number-->", currentStep);
       let steppass = false;
       if (currentStep === 1) {
        steppass = await step1checker()
@@ -84,14 +84,15 @@ import React, {
         steppass = await step2checker()
      }
       if (!isLastStep && steppass) {
+        console.log("totalSteps-->", totalSteps);
         setDirection(1);
         updateStep(currentStep + 1);
       }
     };
   
     const handleComplete = () => {
-      setDirection(1);
-      updateStep(totalSteps + 1);
+     console.log("Final final step completed");
+     onFinalStepCompleted();
     };
   
     return (
@@ -173,7 +174,7 @@ import React, {
                   className="text-[1.5rem] font-semibold cursor-pointer hover:scale-[1.03] transition-all text-white bg-[#00B727] px-[2.5rem] py-[0.4rem] flex  rounded-[5px] "
                   {...nextButtonProps}
                 >
-                  {isLastStep ? "Complete" : nextButtonText}
+                  {isLastStep ? "Submit" : nextButtonText}
                 </button>
               </div>
             </div>

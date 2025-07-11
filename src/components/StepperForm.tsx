@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
 import Stepper, { Step } from '@/components/ui-components/Stepper'
 import { Autocomplete, TextField } from '@mui/material';
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
+import { ToastContainer, toast } from 'react-toastify'
 const StepperForm = () => {
   const [selectedJobs, setSelectedJobs] = useState<{ title: string }[]>([]);
   const [selectedLocation, setSelectedLocation] = useState<string[]>(["Remote"]);
@@ -9,19 +12,47 @@ const StepperForm = () => {
   const [selectTime, setselectTime] = useState<string>("");
   const [selectampm, setselectampm] = useState<string>("");
   const [selectNumberofJobs, setselectNumberofJobs] = useState<string>("");
+  const [openloader, Setopenloader] = useState(false);
 
 // step1 checker 
   const step1checker = ()=>{
     if (selectedJobs.length === 0) {
-      alert("Please select at least one job title.");
+      toast.error("Please select at least one job title.", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
       return false;
     }
     if (selectedLocation.length === 0) {
-      alert("Please select at least one job location.");
+      toast.error("Please select at least one job location.", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
       return false;
     }
     if (selecteexp === "") {
-      alert("Please select your experience level.");
+      toast.error("Please select your experience level.", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
       return false;
     }
     return true;
@@ -30,28 +61,87 @@ const StepperForm = () => {
 // Step2 checker
   const step2checker = () => {
     if (email.trim() === "") {
-      alert("Please enter your email.");
+      toast.error("Please enter your email.", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
       return false;
     }
     if (selectTime === "") {
-      alert("Please select a time.");
+      toast.error("Please select a time.", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
       return false;
     }
     if (selectampm === "") {
-      alert("Please select AM/PM.");
+      toast.error("Please select AM/PM.", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
       return false;
     }
     if (selectNumberofJobs === "") {
-      alert("Please select the number of jobs.");
+      toast.error("Please select the number of jobs.", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
       return false;
     }
     return true;
   } 
 
+// Submiting the form
+const handleSubmit = async()=> {
+  try {
+    Setopenloader(true);
+    console.log("Form submitted with data:", {
+      selectedJobs,
+      selectedLocation,
+      selecteexp,
+      email,
+      selectTime,
+      selectampm,
+      selectNumberofJobs
+    });
+  } catch (error) {
+    console.log(error);
+  }
+}
 
   return (
     <>
-        <Stepper step1checker = {step1checker} step2checker={step2checker}   initialStep={1} onStepChange={(step) => {console.log(step); }} onFinalStepCompleted={() => console.log("All steps completed!")} backButtonText="Previous" nextButtonText="Next">
+      <Backdrop
+        sx={(theme) => ({ color: '#fff', zIndex: theme.zIndex.drawer + 1 })}
+        open={openloader}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
+        <Stepper step1checker = {step1checker} step2checker={step2checker}   initialStep={1} onStepChange={(step) => {console.log(step); }} onFinalStepCompleted={handleSubmit} backButtonText="Previous" nextButtonText="Next">
           <Step> 
             <div className="flex flex-col gap-[3rem]">
               <Autocomplete
@@ -159,7 +249,7 @@ const StepperForm = () => {
           </Step>
           <Step> 
             <div className='flex flex-col gap-[3rem] ' >
-              <input className=' outline-none border-b-[1px] border-gray-500 font-semibold text-[1.3rem] bg-white ' value={email} onChange={(e)=>Setemail(e.target.value)}  type="text" placeholder='Enter the email id'  />
+              <input className=' outline-none border-b-[1px] border-gray-500 font-semibold text-[1.3rem] bg-white ' value={email} onChange={(e)=>Setemail(e.target.value)}  type="email"  placeholder="Enter your email"   />
               <div className='flex w-full justify-between ' >
                 <Autocomplete
                   className='!w-[45%] '
@@ -186,8 +276,8 @@ const StepperForm = () => {
                     <TextField
                       {...params}
                       variant="standard"
-                      label="please select the time"
-                      placeholder="Select the time"
+                      label="Preferred Hour"
+                      placeholder="e.g. 10"                      
                       required={true}
                     />
                   )}
@@ -217,8 +307,8 @@ const StepperForm = () => {
                     <TextField
                       {...params}
                       variant="standard"
-                      label="Select Am/PM "
-                      placeholder="Select Am/PM"
+                      label="AM or PM"
+                      placeholder="Choose AM or PM"                      
                       required={true}
                     />
                   )}
@@ -248,8 +338,8 @@ const StepperForm = () => {
                     <TextField
                       {...params}
                       variant="standard"
-                      label="select the number of jobs"
-                      placeholder="select the number of jobs"
+                     label="Jobs Per Day"
+                     placeholder="e.g. 5"
                       required={true}
                     />
                   )}
@@ -257,10 +347,47 @@ const StepperForm = () => {
             </div>
           </Step>
           <Step> 
-            <h2>Welcome to the React Bits stepper!</h2>
-            <p>Check out the next step!</p>
+          <div className="p-4 rounded-xl bg-gray-100 shadow-sm space-y-4">
+            <h2 className="text-xl font-bold">📝 Review Your Job Alert</h2>
+            <div className='flex justify-between flex-wrap  ' >
+              <div className='w-[45%]' >
+                <p className='font-bold text-black ' >📌 Job Titles:</p>
+                <ul >
+                  {selectedJobs.map(job => <li className='font-semibold text-blue-500 text-[1.2rem] '  key={job.title}><span className='text-black' > • </span>{job.title}</li>)}
+                </ul>
+              </div>
+              <div  className='w-[45%]'>
+                <p className='font-bold text-black ' >📍 Preferred Locations:</p>
+                <ul>
+                  {selectedLocation.map(loc => <li className='font-semibold text-blue-500 text-[1.2rem] '  key={loc}><span className='text-black' > • </span>{loc}</li>)}
+                </ul>
+              </div>
+            </div>
+            <div className='flex justify-between flex-wrap  '>
+              <div className='w-[45%] flex flex-col gap-[1rem] ' >
+                    <p className='font-semibold text-blue-500 text-[1.2rem] ' ><span className='font-bold text-black ' >💼 Experience:</span> {selecteexp}</p>
+                    <p className='font-semibold text-blue-500 text-[1.2rem] ' ><span className='font-bold text-black ' >📧 Email:</span> {email}</p>
+              </div>
+              <div className='w-[45%] flex flex-col gap-[1rem]' >
+                    <p className='font-semibold text-blue-500 text-[1.2rem] ' ><span className='font-bold text-black ' >🕒 Preferred Time:</span> Daily {selectTime}:00 {selectampm}</p>
+                    <p className='font-semibold text-blue-500 text-[1.2rem] ' ><span className='font-bold text-black ' >📋 Jobs Per Day:</span> {selectNumberofJobs}</p>
+              </div>
+            </div>
+          </div>
           </Step>
         </Stepper>
+        <ToastContainer
+position="top-right"
+autoClose={5000}
+hideProgressBar={false}
+newestOnTop={false}
+closeOnClick={false}
+rtl={false}
+pauseOnFocusLoss
+draggable
+pauseOnHover
+theme="light"
+/>
     </>
   )
 }
