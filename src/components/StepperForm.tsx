@@ -27,9 +27,31 @@ const StepperForm = () => {
     return true;
   }
 
+// Step2 checker
+  const step2checker = () => {
+    if (email.trim() === "") {
+      alert("Please enter your email.");
+      return false;
+    }
+    if (selectTime === "") {
+      alert("Please select a time.");
+      return false;
+    }
+    if (selectampm === "") {
+      alert("Please select AM/PM.");
+      return false;
+    }
+    if (selectNumberofJobs === "") {
+      alert("Please select the number of jobs.");
+      return false;
+    }
+    return true;
+  } 
+
+
   return (
     <>
-        <Stepper step1checker = {step1checker}   initialStep={1} onStepChange={(step) => {console.log(step); }} onFinalStepCompleted={() => console.log("All steps completed!")} backButtonText="Previous" nextButtonText="Next">
+        <Stepper step1checker = {step1checker} step2checker={step2checker}   initialStep={1} onStepChange={(step) => {console.log(step); }} onFinalStepCompleted={() => console.log("All steps completed!")} backButtonText="Previous" nextButtonText="Next">
           <Step> 
             <div className="flex flex-col gap-6">
               <Autocomplete

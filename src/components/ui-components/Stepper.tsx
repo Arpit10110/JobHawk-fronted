@@ -24,6 +24,7 @@ import React, {
     nextButtonText?: string;
     disableStepIndicators?: boolean;
     step1checker?: () => boolean; // Function to check step 1 conditions
+    step2checker?: () => boolean; // Function to check step 1 conditions
     renderStepIndicator?: (props: {
       step: number;
       currentStep: number;
@@ -47,6 +48,7 @@ import React, {
     disableStepIndicators = false,
     renderStepIndicator,
     step1checker= () => {return true }, // Default to an empty function if not provided
+    step2checker= () => {return true }, // Default to an empty function if not provided
     ...rest
   }: StepperProps) {
     const [currentStep, setCurrentStep] = useState<number>(initialStep);
@@ -74,11 +76,14 @@ import React, {
   
     const handleNext = async() => {
       console.log("Step 1 data-->", currentStep);
-      let step1pass = false;
+      let steppass = false;
       if (currentStep === 1) {
-       step1pass = await step1checker()
+       steppass = await step1checker()
       }
-      if (!isLastStep && step1pass) {
+     else{
+        steppass = await step2checker()
+     }
+      if (!isLastStep && steppass) {
         setDirection(1);
         updateStep(currentStep + 1);
       }
@@ -153,7 +158,7 @@ import React, {
                 {currentStep !== 1 && (
                   <button
                     onClick={handleBack}
-                    className={`duration-350 rounded px-2 py-1 transition ${
+                    className={`duration-350 cursor-pointer rounded px-2 py-1 transition ${
                       currentStep === 1
                         ? "pointer-events-none opacity-50 text-neutral-400"
                         : "text-neutral-400 hover:text-neutral-700"
@@ -296,23 +301,23 @@ import React, {
           : "complete";
   
     const handleClick = () => {
-      if (step !== currentStep && !disableStepIndicators) {
-        onClickStep(step);
-      }
+      // if (step !== currentStep && !disableStepIndicators) {
+      //   onClickStep(step);
+      // }
     };
   
     return (
       <motion.div
         onClick={handleClick}
-        className="relative cursor-pointer outline-none focus:outline-none"
+        className="relative cursor-default outline-none focus:outline-none"
         animate={status}
         initial={false}
       >
         <motion.div
           variants={{
             inactive: { scale: 1, backgroundColor: "#222", color: "#a3a3a3" },
-            active: { scale: 1, backgroundColor: "#5227FF", color: "#5227FF" },
-            complete: { scale: 1, backgroundColor: "#5227FF", color: "#3b82f6" },
+            active: { scale: 1, backgroundColor: "#5095ff", color: "#5227FF" },
+            complete: { scale: 1, backgroundColor: "#00E227", color: "#3b82f6" },
           }}
           transition={{ duration: 0.3 }}
           className="flex h-8 w-8 items-center justify-center rounded-full font-semibold"
