@@ -7,7 +7,7 @@ const page = () => {
   return (
     <>
         <Navbar/>
-        <div>
+        <div className='pt-[5rem] min-h-[100vh] pb-[10rem]' >
             <StepperForm />
         </div>
     </>

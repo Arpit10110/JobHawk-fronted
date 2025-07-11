@@ -96,7 +96,7 @@ import React, {
   
     return (
       <div
-        className="flex h-full w-full items-center justify-center  mt-[5rem] "
+        className="flex h-full w-full  "
         {...rest}
       >
         <div
@@ -158,10 +158,10 @@ import React, {
                 {currentStep !== 1 && (
                   <button
                     onClick={handleBack}
-                    className={`duration-350 cursor-pointer rounded px-2 py-1 transition ${
+                    className={`${
                       currentStep === 1
-                        ? "pointer-events-none opacity-50 text-neutral-400"
-                        : "text-neutral-400 hover:text-neutral-700"
+                        ? "hidden"
+                        : "text-[1.5rem] font-semibold cursor-pointer hover:scale-[1.03] transition-all text-white bg-[#df032b] px-[2.5rem] py-[0.4rem] flex  rounded-[5px] "
                     }`}
                     {...backButtonProps}
                   >
@@ -170,7 +170,7 @@ import React, {
                 )}
                 <button
                   onClick={isLastStep ? handleComplete : handleNext}
-                  className="duration-350 flex items-center justify-center rounded-full bg-green-500 py-1.5 px-3.5 font-medium tracking-tight text-white transition hover:bg-green-600 active:bg-green-700"
+                  className="text-[1.5rem] font-semibold cursor-pointer hover:scale-[1.03] transition-all text-white bg-[#00B727] px-[2.5rem] py-[0.4rem] flex  rounded-[5px] "
                   {...nextButtonProps}
                 >
                   {isLastStep ? "Complete" : nextButtonText}
@@ -212,7 +212,7 @@ import React, {
             <SlideTransition
               key={currentStep}
               direction={direction}
-              onHeightReady={(h) => setParentHeight(h)}
+              onHeightReady={(h) => setParentHeight(h+10)}
             >
               {children}
             </SlideTransition>

@@ -53,8 +53,9 @@ const StepperForm = () => {
     <>
         <Stepper step1checker = {step1checker} step2checker={step2checker}   initialStep={1} onStepChange={(step) => {console.log(step); }} onFinalStepCompleted={() => console.log("All steps completed!")} backButtonText="Previous" nextButtonText="Next">
           <Step> 
-            <div className="flex flex-col gap-6">
+            <div className="flex flex-col gap-[3rem]">
               <Autocomplete
+                className='!font-bold'
                 multiple
                 id="job-title-selector"
                 options={jobTitles}
@@ -67,6 +68,19 @@ const StepperForm = () => {
                 value={selectedJobs}
                 renderInput={(params) => (
                   <TextField
+                    sx={
+                      {
+                      '& .MuiChip-label':{
+                        fontSize: '1.1rem',
+                      },
+                      '& .MuiFormLabel-root':{
+                        fontSize: '1.1rem',
+                        fontWeight: '600',
+                        color:"black"
+                      }
+                      }
+                    }
+                     className='!font-bold'
                     {...params}
                     variant="standard"
                     label="Select up to 3 Job Titles"
@@ -91,6 +105,18 @@ const StepperForm = () => {
                 defaultValue={["Remote"]}              
                 renderInput={(params) => (
                   <TextField
+                  sx={
+                    {
+                     '& .MuiChip-label':{
+                      fontSize: '1.1rem',
+                     },
+                     '& .MuiFormLabel-root':{
+                      fontSize: '1.1rem',
+                      fontWeight: '600',
+                      color:"black"
+                    }
+                    }
+                  }
                     {...params}
                     variant="standard"
                     label="Job Location"
@@ -100,6 +126,18 @@ const StepperForm = () => {
                 )}
               />
               <Autocomplete
+                sx={
+                  {
+                  '& .MuiInputBase-input':{
+                    fontSize: '1.1rem',
+                  },
+                  '& .MuiFormLabel-root':{
+                    fontSize: '1.1rem',
+                    fontWeight: '600',
+                    color:"black"
+                  }
+                  }
+                }
                 id="exp-selector"
                 options={expoption}
                 getOptionLabel={(option) => option}
@@ -120,11 +158,23 @@ const StepperForm = () => {
             </div>
           </Step>
           <Step> 
-            <div className='flex flex-col gap-[1rem] ' >
-              <input className='' value={email} onChange={(e)=>Setemail(e.target.value)}  type="text" placeholder='Enter the email id'  />
+            <div className='flex flex-col gap-[3rem] ' >
+              <input className=' outline-none border-b-[1px] border-gray-500 font-semibold text-[1.3rem] bg-white ' value={email} onChange={(e)=>Setemail(e.target.value)}  type="text" placeholder='Enter the email id'  />
               <div className='flex w-full justify-between ' >
                 <Autocomplete
-                  className='!w-[40%] '
+                  className='!w-[45%] '
+                  sx={
+                    {
+                    '& .MuiInputBase-input':{
+                      fontSize: '1.1rem',
+                    },
+                    '& .MuiFormLabel-root':{
+                      fontSize: '1.1rem',
+                      fontWeight: '600',
+                      color:"black"
+                    }
+                    }
+                  }
                   id="time-selector1"
                   options={timeoption}
                   getOptionLabel={(option) => option}
@@ -143,7 +193,19 @@ const StepperForm = () => {
                   )}
                 />
                 <Autocomplete
-                  className='!w-[40%] '
+                  className='!w-[45%] '
+                  sx={
+                    {
+                    '& .MuiInputBase-input':{
+                      fontSize: '1.1rem',
+                    },
+                    '& .MuiFormLabel-root':{
+                      fontSize: '1.1rem',
+                      fontWeight: '600',
+                      color:"black"
+                    }
+                    }
+                  }
                   id="ampm-selector1"
                   options={ampmoption}
                   getOptionLabel={(option) => option}
@@ -163,6 +225,18 @@ const StepperForm = () => {
                 />
               </div>
               <Autocomplete
+              sx={
+                {
+                '& .MuiInputBase-input':{
+                  fontSize: '1.1rem',
+                },
+                '& .MuiFormLabel-root':{
+                  fontSize: '1.1rem',
+                  fontWeight: '600',
+                  color:"black"
+                }
+                }
+              }
                   id="numberofjobs-selector"
                   options={numberofjobsoption}
                   getOptionLabel={(option) => option}
