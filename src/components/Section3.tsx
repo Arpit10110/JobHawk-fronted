@@ -9,7 +9,7 @@ import BusinessCenterIcon from '@mui/icons-material/BusinessCenter';
 interface HowItWorksItem {
     title: string;
     description: string;
-    icon: any;
+    icon: React.ReactNode;
   }
 
 const Section3 = () => {
@@ -53,7 +53,7 @@ const Section3 = () => {
         <h2 className='text-center bungee-font text-[3rem] font-semibold ' >How It Works</h2>
        <div className='flex flex-wrap gap-y-[4rem] justify-around my-[5rem] ' >
            {
-            howItWorksData.map((i,index)=>{
+            howItWorksData.map((i:HowItWorksItem,index:number)=>{
                 return(
                     <div key={index} className=' max-tablet:w-[45%] max-smobile:w-[85%]  shadow-[0px_4px_19px_8px_#4042434d] cursor-pointer hover:scale-[1.03] transition-all w-[28%] rounded-[10px] flex flex-col gap-[0.5rem] bg-gray-200 p-[2rem] items-center justify-center  ' >
                         {i.icon}

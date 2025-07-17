@@ -356,9 +356,7 @@ import React, {
     );
   }
   
-  interface CheckIconProps extends React.SVGProps<SVGSVGElement> {}
-  
-  function CheckIcon(props: CheckIconProps) {
+  function CheckIcon(props: React.SVGProps<SVGSVGElement>) {
     return (
       <svg
         {...props}
@@ -383,4 +381,3 @@ import React, {
       </svg>
     );
   }
-  
