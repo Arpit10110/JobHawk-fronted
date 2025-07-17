@@ -101,7 +101,7 @@ import React, {
         {...rest}
       >
         <div
-          className={`mx-auto w-[60%] rounded-4xl shadow-xl ${stepCircleContainerClassName}`}
+          className={`mx-auto w-[60%] max-tablet:w-[80%] max-mobile:w-[90%] max-smobile:w-[95%] rounded-4xl shadow-xl ${stepCircleContainerClassName}`}
           style={{ border: "1px solid #222" }}
         >
           <div
