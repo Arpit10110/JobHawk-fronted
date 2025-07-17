@@ -55,7 +55,7 @@ const Section3 = () => {
            {
             howItWorksData.map((i,index)=>{
                 return(
-                    <div key={index} className=' shadow-[0px_4px_19px_8px_#4042434d] cursor-pointer hover:scale-[1.03] transition-all w-[28%] rounded-[10px] flex flex-col gap-[0.5rem] bg-gray-200 p-[2rem] items-center justify-center  ' >
+                    <div key={index} className=' max-tablet:w-[45%] max-smobile:w-[85%]  shadow-[0px_4px_19px_8px_#4042434d] cursor-pointer hover:scale-[1.03] transition-all w-[28%] rounded-[10px] flex flex-col gap-[0.5rem] bg-gray-200 p-[2rem] items-center justify-center  ' >
                         {i.icon}
                         <h2 className='text-[1.8rem] font-bold  text-center ' >{i.title}</h2>
                         <p className='text-[1.3rem] font-semibold text-gray-700  text-center'>

@@ -4,6 +4,8 @@ import { Autocomplete, TextField } from '@mui/material';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 import { ToastContainer, toast } from 'react-toastify'
+import axios from 'axios';
+
 const StepperForm = () => {
   const [selectedJobs, setSelectedJobs] = useState<{ title: string }[]>([]);
   const [selectedLocation, setSelectedLocation] = useState<string[]>(["Remote"]);
@@ -132,7 +134,7 @@ const StepperForm = () => {
 // Submiting the form
 const handleSubmit = async()=> {
   try {
-    Setopenloader(true);
+    // Setopenloader(true);
     console.log("Form submitted with data:", {
       selectedJobs,
       selectedLocation,
@@ -140,12 +142,29 @@ const handleSubmit = async()=> {
       email,
       selectTime,
       selectampm,
-      selectNumberofJobs
+      selectNumberofJobs,
+      selectJobType
     });
+    const res = await axios.post(`${process.env.NEXT_PUBLIC_Backend_url}/createjobform`,{
+      selectedJobs,
+      selectedLocation,
+      selecteexp,
+      email,
+      selectTime,
+      selectampm,
+      selectNumberofJobs,
+      selectJobType,
+      plantype:"free",
+      status:"active"
+    })
+    console.log(res)
   } catch (error) {
     console.log(error);
   }
 }
+
+
+  
 
   return (
     <>

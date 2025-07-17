@@ -34,8 +34,8 @@ const Section4 = () => {
     <>
         <section className='pb-[4rem] ' >
             <h2 className='text-center bungee-font text-[3rem] font-semibold ' >Compare Plans</h2>
-            <div className='w-full flex justify-center items-center mt-[5rem] ' >
-              <div className='w-[55%]' >
+            <div className='w-full flex flex-wrap max-tablet:gap-[3rem] justify-center items-center mt-[5rem] ' >
+              <div className='w-[55%] max-tablet:w-[95%] max-mobile:w-[100%] ' >
                 <div className='flex justify-centet items-center   ' >
                   <Table className='!w-[90%] m-auto bg-[#00000008] rounded-[1rem] !shadow-[0px_4px_19px_8px_#4042434d]   '   aria-label="simple table">
                           <TableHead>
@@ -62,7 +62,7 @@ const Section4 = () => {
                   <Link href={"/pricing"} className='px-[5rem]  py-[0.7rem] bg-blue-600 shadow-[0px_4px_19px_8px_#4042434d] hover:scale-[1.03] transition-all rounded-[1rem] text-[2rem] text-white font-semibold  ' >View full pricing →</Link>
                 </div>
               </div>
-              <div className='w-[40%]' >
+              <div className='w-[40%] max-tablet:w-[60%]' >
                   <Image src={Sec4Image1} alt='' />
               </div>
             </div>

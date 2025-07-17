@@ -1,6 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Bungee+Shade&family=Engagement&display=swap');
 @import "tailwindcss";
 
+@theme{
+  --breakpoint-laptop: 1255px;
+  --breakpoint-slaptop: 1024px;
+  --breakpoint-tablet: 780px;
+  --breakpoint-mobile: 670px;
+  --breakpoint-smobile: 460px;
+  --breakpoint-xsmobile: 375px;
+}
+
+
 html{
   font-size: 75%;
 }
@@ -14,4 +24,25 @@ color: black;
 }
 .engagement-font{
   font-family: "Engagement", cursive;
+}
+
+@media (max-width: 1024px) {
+  html {
+    font-size: 70%;
+  }
+}
+@media (max-width: 780px) {
+  html {
+    font-size: 65%;
+  }
+}
+@media (max-width: 670px) {
+  html {
+    font-size: 60%;
+  }
+}
+@media (max-width: 460px) {
+  html {
+    font-size: 55%;
+  }
 }
