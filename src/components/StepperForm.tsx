@@ -134,7 +134,7 @@ const StepperForm = () => {
 // Submiting the form
 const handleSubmit = async()=> {
   try {
-    // Setopenloader(true);
+    Setopenloader(true);
     console.log("Form submitted with data:", {
       selectedJobs,
       selectedLocation,

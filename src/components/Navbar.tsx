@@ -3,7 +3,6 @@ import { SignedIn, SignedOut } from '@clerk/nextjs'
 import Link from 'next/link'
 import React, { useState } from 'react'
 import MenuIcon from '@mui/icons-material/Menu';
-import ClearIcon from '@mui/icons-material/Clear';
 import { Drawer } from '@mui/material';
 const Navbar = () => {
     const [open, setOpen] = useState(false);

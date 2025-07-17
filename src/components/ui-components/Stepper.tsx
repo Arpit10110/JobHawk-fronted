@@ -291,8 +291,6 @@ import React, {
   function StepIndicator({
     step,
     currentStep,
-    onClickStep,
-    disableStepIndicators = false,
   }: StepIndicatorProps) {
     const status =
       currentStep === step
