@@ -12,8 +12,8 @@ const page = () => {
                         fontSize:"1.3rem"
                     },
                     elements:{
-                        cardBox:"!w-[100%]",
-                        rootBox:"!w-[30%]"
+                        cardBox:"!w-[100%]  ",
+                        rootBox:"!w-[30%] max-tablet:!w-[70%] max-mobile:!w-[90%] "
                     }
                 }
             } />
