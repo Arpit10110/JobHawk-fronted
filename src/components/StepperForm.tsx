@@ -5,8 +5,11 @@ import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 import { ToastContainer, toast } from 'react-toastify'
 import axios from 'axios';
+import { useRouter } from "next/navigation";
+
 
 const StepperForm = () => {
+  const router = useRouter()
   const [selectedJobs, setSelectedJobs] = useState<{ title: string }[]>([]);
   const [selectedLocation, setSelectedLocation] = useState<string[]>(["Remote"]);
   const [selecteexp, setSelecteexp] = useState<string>("");
@@ -158,12 +161,26 @@ const handleSubmit = async()=> {
       status:"active"
     })
     console.log(res)
+    if(res.data.success == true){
+      router.push("/job-alert-created")
+    }else{
+      console.log("Error occured")
+    }
+    Setopenloader(false)
   } catch (error) {
+    Setopenloader(false)
     console.log(error);
   }
 }
 
-
+const cherker = async()=>{
+  try {
+    const res = await axios.get(`${process.env.NEXT_PUBLIC_Backend_url}/`);
+    console.log(res);
+  } catch (error) {
+    console.log(error);
+  }
+}
   
 
   return (
@@ -445,6 +462,7 @@ const handleSubmit = async()=> {
           </div>
           </Step>
         </Stepper>
+        <button onClick={cherker} >check</button>
         <ToastContainer
 position="top-right"
 autoClose={5000}
@@ -501,7 +519,7 @@ const jobTitles = [
 ];
 const jobLocations = [
   "Remote",
-  "Bengaluru",
+  "Bangalore",
   "Delhi",
   "Mumbai",
   "Hyderabad",
