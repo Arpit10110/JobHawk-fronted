@@ -165,23 +165,13 @@ const handleSubmit = async()=> {
       router.push("/job-alert-created")
     }else{
       console.log("Error occured")
+      Setopenloader(false)
     }
-    Setopenloader(false)
   } catch (error) {
     Setopenloader(false)
     console.log(error);
   }
 }
-
-const cherker = async()=>{
-  try {
-    const res = await axios.get(`${process.env.NEXT_PUBLIC_Backend_url}/`);
-    console.log(res);
-  } catch (error) {
-    console.log(error);
-  }
-}
-  
 
   return (
     <>
@@ -462,7 +452,6 @@ const cherker = async()=>{
           </div>
           </Step>
         </Stepper>
-        <button onClick={cherker} >check</button>
         <ToastContainer
 position="top-right"
 autoClose={5000}
