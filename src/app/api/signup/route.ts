@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server"; 
-import { auth, signIn } from "@/auth"
 import { UserModel } from "@/model/usermode"
 import { connectDB } from "@/db/dbconnect";
 import bcrypt from "bcryptjs";
@@ -15,7 +14,7 @@ export const POST = async(req:Request)=>{
             return NextResponse.json({success:false,message:"User already exists. Please login"})
         }
         const hashpassword = await bcrypt.hash(password,10)
-        const user = await UserModel.create({name,email,password:hashpassword})
+        await UserModel.create({name,email,password:hashpassword})
         return NextResponse.json({success:true,message:"User created successfully"})
     } catch (error) {
         return NextResponse.json({success:false,message:"Error in creating user",error:error})

@@ -13,7 +13,7 @@ const SignupForm = () => {
   const [password, setPassword] = useState('')
   const [name, setName] = useState('')
   const [open, setOpen] = React.useState(false);
-  const handleSubmit = async(e:any)=>{
+  const handleSubmit = async(e:React.FormEvent<HTMLFormElement>)=>{
     setOpen(true);
     e.preventDefault()
     try {

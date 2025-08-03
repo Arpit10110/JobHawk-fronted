@@ -7,10 +7,20 @@ import Section4 from '../components/Section4'
 import Section5 from '@/components/Section5'
 import Footer from '@/components/Footer'
 import { getuser } from '@/lib/getuser';
-
+type User = {
+  id: string;
+  name: string;
+  email: string;
+};
 const page = async() => {
-  const user =await getuser()
-  // console.log(user)
+  const session = await getuser(); // Fetch session data
+  const user: User | undefined = session?.user
+  ? {
+      id: session.user.id || '', // Ensure id is a string
+      name: session.user.name || 'Unknown', // Provide a fallback for name
+      email: session.user.email || '', // Ensure email is a string
+    }
+  : undefined;
   return (
     <>
     <Navbar user={user}/>

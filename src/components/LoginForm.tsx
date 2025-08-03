@@ -11,7 +11,7 @@ const LoginForm = () => {
   const [email,setemail] = useState('')
   const [password,setpassword] = useState('')
   const [open, setOpen] = React.useState(false);
-  const handleloginsubmit = async(e:any)=>{
+  const handleloginsubmit = async(e:React.FormEvent<HTMLFormElement>)=>{
     e.preventDefault()
     setOpen(true);
     try {

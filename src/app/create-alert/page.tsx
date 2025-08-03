@@ -2,8 +2,6 @@
 import Navbar from '@/components/Navbar'
 import StepperForm from '@/components/StepperForm'
 import React from 'react'
-import { SignedIn, SignedOut } from '@clerk/nextjs'
-import Link from 'next/link';
 
 const page = () => {
   return (

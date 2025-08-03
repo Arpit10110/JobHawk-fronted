@@ -1,4 +1,4 @@
-import NextAuth, { CredentialsSignin } from "next-auth"
+import NextAuth from "next-auth"
 import GoogleProvider from "next-auth/providers/google"
 import CredensitalProvider from "next-auth/providers/credentials"
 // import { connectDB } from "./db/dbconnect";
@@ -41,7 +41,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     signIn:"/login",
   },
   callbacks:{
-    signIn:async({user,account})=>{
+    signIn:async({account})=>{
       if(account?.provider=="google"){
         // const user_email = user.email;
         // await connectDB();

@@ -3,7 +3,12 @@ import Link from 'next/link'
 import React, { useState } from 'react'
 import MenuIcon from '@mui/icons-material/Menu';
 import { Drawer } from '@mui/material';
-const Navbar = ({user}:any) => {
+type User = {
+    id: string;
+    name: string;
+    email: string;
+  } | null;
+const Navbar = ({user}:{user?:User}) => {
     console.log(user)
     const [open, setOpen] = useState(false);
   const toggleDrawer = (newOpen: boolean) => () => {
