@@ -6,11 +6,14 @@ import React from 'react'
 import Section4 from '../components/Section4'
 import Section5 from '@/components/Section5'
 import Footer from '@/components/Footer'
+import { getuser } from '@/lib/getuser';
 
-const page = () => {
+const page = async() => {
+  const user =await getuser()
+  // console.log(user)
   return (
     <>
-    <Navbar/>
+    <Navbar user={user}/>
     <Section1/>
     <Section2/>
     <Section3/>

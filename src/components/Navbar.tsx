@@ -1,15 +1,16 @@
 "use client"
-import { SignedIn, SignedOut } from '@clerk/nextjs'
 import Link from 'next/link'
 import React, { useState } from 'react'
 import MenuIcon from '@mui/icons-material/Menu';
 import { Drawer } from '@mui/material';
-const Navbar = () => {
+const Navbar = ({user}:any) => {
+    console.log(user)
     const [open, setOpen] = useState(false);
-
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
   };
+
+  
 
   return (
     <>
@@ -21,13 +22,12 @@ const Navbar = () => {
                 <Link className='hover:scale-[1.03] transition-all text-gray-700'  href={"/"} >Home</Link>
                 <Link className='hover:scale-[1.03] transition-all text-gray-700'  href={"/pricing"} >Pricing</Link>
                 <Link className='hover:scale-[1.03] transition-all text-gray-700'  href={"/create-alert"} >Create Alert</Link>
-             
-                <SignedOut>
-                    <Link  className='bg-[#2B7EFE] text-white rounded-[10px] px-[1rem] py-[0.3rem] flex items-center hover:scale-[1.03] transition-all  '  href={"/sign-in"} >LogIn</Link>
-                </SignedOut>
-                <SignedIn >
+
+                {
+                    user==null?
+                    <Link  className='bg-[#2B7EFE] text-white rounded-[10px] px-[1rem] py-[0.3rem] flex items-center hover:scale-[1.03] transition-all  '  href={"/login"} >LogIn</Link>:
                     <Link className='bg-[#2B7EFE] text-white rounded-[10px] px-[1rem] py-[0.3rem] flex items-center hover:scale-[1.03] transition-all  ' href={"/user-profile"} >Profile</Link>
-                </SignedIn>
+                }
             </div>
             <div className='hidden max-mobile:inline-block' >
                 <button onClick={()=>setOpen(true)} >
@@ -40,13 +40,11 @@ const Navbar = () => {
                     <Link className='hover:scale-[1.03] transition-all text-gray-700'  href={"/"} >Home</Link>
                     <Link className='hover:scale-[1.03] transition-all text-gray-700'  href={"/pricing"} >Pricing</Link>
                     <Link className='hover:scale-[1.03] transition-all text-gray-700'  href={"/create-alert"} >Create Alert</Link>
-                
-                    <SignedOut>
-                        <Link  className='bg-[#2B7EFE] text-white rounded-[10px] px-[1rem] py-[0.3rem] flex items-center hover:scale-[1.03] transition-all  '  href={"/sign-in"} >LogIn</Link>
-                    </SignedOut>
-                    <SignedIn >
+                    {
+                    user==null?
+                        <Link  className='bg-[#2B7EFE] text-white rounded-[10px] px-[1rem] py-[0.3rem] flex items-center hover:scale-[1.03] transition-all  '  href={"/login"} >LogIn</Link>:
                         <Link className='bg-[#2B7EFE] text-white rounded-[10px] px-[1rem] py-[0.3rem] flex items-center hover:scale-[1.03] transition-all  ' href={"/user-profile"} >Profile</Link>
-                    </SignedIn>
+                    }
                 </div>
             </Drawer>
     </>
