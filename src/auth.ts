@@ -1,8 +1,8 @@
 import NextAuth, { CredentialsSignin } from "next-auth"
 import GoogleProvider from "next-auth/providers/google"
 import CredensitalProvider from "next-auth/providers/credentials"
-import { connectDB } from "./db/dbconnect";
-import { UserModel } from "./model/usermode";
+// import { connectDB } from "./db/dbconnect";
+// import { UserModel } from "./model/usermode";
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
     GoogleProvider({
@@ -43,16 +43,16 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   callbacks:{
     signIn:async({user,account})=>{
       if(account?.provider=="google"){
-        const user_email = user.email;
-        await connectDB();
-        const isuser = await UserModel.findOne({email:user_email});
-        if(!isuser){
-          await UserModel.create({
-            name:user.name,
-            email:user_email,
-            googleId:user.id
-          })
-        }
+        // const user_email = user.email;
+        // await connectDB();
+        // const isuser = await UserModel.findOne({email:user_email});
+        // if(!isuser){
+        //   await UserModel.create({
+        //     name:user.name,
+        //     email:user_email,
+        //     googleId:user.id
+        //   })
+        // }
         return true
       }
       else if (account?.provider === "credentials") {
