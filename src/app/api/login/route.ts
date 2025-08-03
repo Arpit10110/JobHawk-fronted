@@ -3,7 +3,9 @@ import { UserModel } from "@/model/usermode";
 import { connectDB } from "@/db/dbconnect";
 import bcrypt from "bcryptjs";
 import { signIn } from "@/auth";
-
+interface NextAuthError extends Error {
+    digest?: string;
+}
 export const POST =async(req:Request)=>{
     try {
         const {email,password} = await req.json();
@@ -26,11 +28,16 @@ export const POST =async(req:Request)=>{
             id:user._id
         })
         return NextResponse.json({success:true,message:"Login successful"})
-    } catch (error:any) {
-        if (error.digest && error.digest.includes('NEXT_REDIRECT')) {
-            return NextResponse.json({success: true, message: "Login successful"})
+    } catch (error:unknown) {
+        if (error instanceof Error && 'digest' in error && 
+            typeof (error as NextAuthError).digest === 'string' && 
+            (error as NextAuthError).digest!.includes('NEXT_REDIRECT')) {
+            return NextResponse.json({ success: true, message: "Login successful" })
         }
-        return NextResponse.json({success:false,message:"Error in Login",error:error})
-
+        return NextResponse.json({ 
+            success: false, 
+            message: "Error in Login", 
+            error: error instanceof Error ? error.message : String(error)
+        })
     }
 }
