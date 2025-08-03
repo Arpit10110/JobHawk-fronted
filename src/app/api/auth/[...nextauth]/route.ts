@@ -1,2 +1,7 @@
-import { handlers } from "@/auth" // Referring to the auth.ts we just created
+// app/api/auth/[...nextauth]/route.ts
+import { handlers } from "@/auth"
+
+// Force Node.js runtime - this is the key fix
+export const runtime = 'nodejs'
+
 export const { GET, POST } = handlers

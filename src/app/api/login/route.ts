@@ -22,7 +22,8 @@ export const POST =async(req:Request)=>{
         }
         await signIn("credentials",{
             email:email,
-            password:password,
+            name:user.name,
+            id:user._id
         })
         return NextResponse.json({success:true,message:"Login successful"})
     } catch (error:any) {

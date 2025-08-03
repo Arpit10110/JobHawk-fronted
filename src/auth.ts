@@ -3,7 +3,6 @@ import GoogleProvider from "next-auth/providers/google"
 import CredensitalProvider from "next-auth/providers/credentials"
 import { connectDB } from "./db/dbconnect";
 import { UserModel } from "./model/usermode";
-import bcrypt from "bcryptjs";
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
     GoogleProvider({
@@ -17,33 +16,25 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           label:"Email",
           type:"email"
       },
-      password:{
-          label:"Password",
-          type:"password",
+      name:{
+          label:"name",
+          type:"name",
+      },
+      id:{
+        label:"id",
+        type:"id",
       }
       },
-      authorize:async(credential)=>{
-        const email = credential.email as string | undefined ;
-        const password = credential.password as string | undefined;
-        if(!email || !password){
-          throw new Error("Invalid credentials")
-        }else{
-          await connectDB();
-          const user = await UserModel.findOne({email});
-            if(!user){
-                throw new Error("User not found")
-            }
-            if(!user.password){
-                throw new CredentialsSignin("Please Login using google or ther providers");
-            }
-            const ispassword = await bcrypt.compare(password,user.password);
-            if(!ispassword){
-                throw new Error("Invalid credentials")
-            }else{
-              return {email:email,name:user.name,userid:user._id}
-            }
-          }
-        }
+     authorize: async(credential)=>{
+       const email = credential.email as string | undefined ;
+       const name = credential.name as string | undefined;
+       const userid = credential.id as string | undefined;
+       if(!email || !userid || !name){
+         throw new Error("Invalid credentials")
+       }
+       console.log(email,name,userid)
+       return {name:name,email:email,id:userid}
+     }
     })
   ],
   pages:{
@@ -63,7 +54,12 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           })
         }
         return true
-      }else{
+      }
+      else if (account?.provider === "credentials") {
+        // Handle credentials sign-in
+        return true // Allow credentials sign-in
+      }
+      else{
         return false
       }
     }

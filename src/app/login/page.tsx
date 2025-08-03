@@ -28,7 +28,7 @@ const page = async() => {
             <div>
                 <button onClick={async()=>{
                   "use server"
-                    await signIn("google")
+                  await signIn("google")
                 }} className='bg-gray-800   cursor-pointer hover:scale-[1.02] transition-all  w-[100%] mt-[0.5rem] m-auto py-[0.3rem] text-[1.5rem] text-white font-bold rounded-[5px] ' >LogIn with Google</button> 
             </div>
             <div className=' mt-[1.5rem]  ' >
