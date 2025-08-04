@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@cashfreepayments/cashfree-js": "^1.0.5",
     "@clerk/nextjs": "^6.23.3",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
@@ -16,6 +17,8 @@
     "@mui/material": "^7.2.0",
     "@types/bcryptjs": "^3.0.0",
     "axios": "^1.10.0",
+    "cashfree-pg": "^5.0.8",
+    "crypto": "^1.0.1",
     "framer-motion": "^12.23.0",
     "mongoose": "^8.17.0",
     "next": "15.3.5",
