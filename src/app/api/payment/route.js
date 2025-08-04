@@ -16,7 +16,7 @@ function generateOrderId() {
   return orderId.substr(0, 12);
 }
 
-export const GET = async (req) => {
+export const GET = async () => {
   try {
     const request = {
       "order_amount": 1.00,
