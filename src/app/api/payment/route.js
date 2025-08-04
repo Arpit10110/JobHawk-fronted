@@ -29,7 +29,8 @@ export const GET = async () => {
         "customer_email": "omagrahari55@gmail.com"
       },
     };
-
+    console.log("App id is "+process.env.Cashfree_App_ID)
+    console.log("Secret is "+process.env.Cashfree_Secret)
     // Properly await the promise
     const response = await cashfree.PGCreateOrder(request);
     return NextResponse.json({
