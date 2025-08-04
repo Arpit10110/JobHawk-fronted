@@ -3,7 +3,7 @@ import crypto from "crypto";
 import { Cashfree } from "cashfree-pg";
 
 const cashfree = new Cashfree(
-  Cashfree.PRODUCTION, 
+  Cashfree.SANDBOX, 
   process.env.Cashfree_App_ID, 
   process.env.Cashfree_Secret
 );
