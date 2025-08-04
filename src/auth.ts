@@ -1,8 +1,7 @@
 import NextAuth from "next-auth"
 import GoogleProvider from "next-auth/providers/google"
 import CredensitalProvider from "next-auth/providers/credentials"
-// import { connectDB } from "./db/dbconnect";
-// import { UserModel } from "./model/usermode";
+import axios from "axios"
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
     GoogleProvider({
@@ -41,19 +40,19 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     signIn:"/login",
   },
   callbacks:{
-    signIn:async({account})=>{
+    signIn:async({user,account})=>{
       if(account?.provider=="google"){
-        // const user_email = user.email;
-        // await connectDB();
-        // const isuser = await UserModel.findOne({email:user_email});
-        // if(!isuser){
-        //   await UserModel.create({
-        //     name:user.name,
-        //     email:user_email,
-        //     googleId:user.id
-        //   })
-        // }
-        return true
+        const res = await axios.post(`${process.env.Frontend_Url}api/googlelogin`,{
+          email:user.email,
+          name:user.name,
+          googleid:user.id
+        })
+        console.log(res)
+        if(res.data.success){
+          return true
+        }else{
+          return false
+        }
       }
       else if (account?.provider === "credentials") {
         // Handle credentials sign-in
