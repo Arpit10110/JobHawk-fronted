@@ -3,7 +3,7 @@ import crypto from "crypto";
 import { Cashfree } from "cashfree-pg";
 
 const cashfree = new Cashfree(
-  Cashfree.SANDBOX, 
+  Cashfree.PRODUCTION, 
   process.env.Cashfree_App_ID, 
   process.env.Cashfree_Secret
 );
@@ -23,10 +23,10 @@ export const GET = async () => {
       "order_currency": "INR",
       "order_id": generateOrderId(), // Remove await here
       "customer_details": {
-        "customer_id": "webcodder01",
-        "customer_phone": "9999999999",
-        "customer_name": "Web Codder",
-        "customer_email": "webcodder@example.com"
+        "customer_id": "arpitkumar",
+        "customer_phone": "9599056856",
+        "customer_name": "Arpit Kumar",
+        "customer_email": "omagrahari55@gmail.com"
       },
     };
 
