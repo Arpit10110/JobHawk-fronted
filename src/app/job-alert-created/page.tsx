@@ -6,7 +6,6 @@ import Link from 'next/link';
 const page = () => {
   return (
     <>
-      <Navbar/>
       <div className='mt-[3rem] flex justify-center items-center   ' >
           <div className='gap-[1rem]  flex-col flex items-center' >
             <Image src={alrtsuccess} alt='' className='w-[50%]' />

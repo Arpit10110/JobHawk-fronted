@@ -13,7 +13,6 @@ const page = async() => {
 
   return (
     <>
-        <Navbar/>
         <div className='bg-gray-100 w-[40%] max-tablet:w-[60%] max-mobile:w-[75%] max-smobile:w-[85%] mt-[3rem] m-auto px-[1rem] py-[2rem] rounded-[1rem]  shadow-[0px_4px_19px_8px_#4042434d]' >
             <div className=' mb-[1.5rem] ' >
                 <h2 className='text-[2rem] text-black font-semibold text-center  ' >Sign in to JobHawk</h2>

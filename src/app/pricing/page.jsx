@@ -81,7 +81,6 @@ const page = () => {
 
   return (
     <>
-        <Navbar/>
         <div>
             <div className='w-[20%] h-[60vh] bg-gray-300 flex justify-center items-center m-auto  px-[1rem] ' >
                 <button onClick={handleClick} className='w-full py-[0.3rem] text-[2rem] bg-blue-500 text-white rounded-[10px] cursor-pointer ' >
