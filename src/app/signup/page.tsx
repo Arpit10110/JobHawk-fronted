@@ -1,5 +1,4 @@
 import { signIn } from '@/auth'
-import Navbar from '@/components/Navbar'
 import SignupForm from '@/components/SignupForm'
 import { getuser } from '@/lib/getuser'
 import Link from 'next/link'

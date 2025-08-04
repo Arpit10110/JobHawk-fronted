@@ -1,4 +1,3 @@
-import Navbar from '@/components/Navbar'
 import React from 'react'
 import LoginForm from '@/components/LoginForm'
 import Link from 'next/link'

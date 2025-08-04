@@ -1,5 +1,4 @@
 import React from 'react'
-import Navbar from '@/components/Navbar';
 import alrtsuccess from "@/assets/alertsuccess.gif"
 import Image from 'next/image';
 import Link from 'next/link';

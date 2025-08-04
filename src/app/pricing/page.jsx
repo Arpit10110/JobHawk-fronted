@@ -1,5 +1,4 @@
 "use client"
-import Navbar from '@/components/Navbar'
 import React, { useEffect } from 'react'
 import axios from "axios"
 import {load} from '@cashfreepayments/cashfree-js'
