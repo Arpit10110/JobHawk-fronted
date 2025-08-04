@@ -1,12 +1,13 @@
 import { NextResponse } from "next/server";
 import crypto from "crypto";
-import { Cashfree } from "cashfree-pg";
+import { Cashfree, CFEnvironment } from "cashfree-pg";
 
 const cashfree = new Cashfree(
-  Cashfree.PRODUCTION, 
+	CFEnvironment.PRODUCTION,
   process.env.Cashfree_App_ID, 
   process.env.Cashfree_Secret
 );
+
 
 function generateOrderId() {
   const uniqueId = crypto.randomBytes(16).toString('hex');
@@ -29,9 +30,7 @@ export const GET = async () => {
         "customer_email": "omagrahari55@gmail.com"
       },
     };
-    console.log("App id is "+process.env.Cashfree_App_ID)
-    console.log("Secret is "+process.env.Cashfree_Secret)
-    // Properly await the promise
+    
     const response = await cashfree.PGCreateOrder(request);
     return NextResponse.json({
       success: true, 
@@ -39,11 +38,11 @@ export const GET = async () => {
     });
 
   } catch (error) {
-    console.error('Error:', error.response?.data?.message || error.message);
+    console.error('Error:', error);
     
     return NextResponse.json({ 
       success: false, 
-      message: error.response?.data?.message || "Payment failed"
+      message: error
     });
   }
 };
