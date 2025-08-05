@@ -1,9 +1,11 @@
 import { NextResponse } from "next/server";
 import crypto from "crypto";
 import { Cashfree, CFEnvironment } from "cashfree-pg";
+import { getuser } from '@/lib/getuser';
 
 const cashfree = new Cashfree(
 	CFEnvironment.PRODUCTION,
+	// CFEnvironment.SANDBOX,
   process.env.Cashfree_App_ID, 
   process.env.Cashfree_Secret
 );
@@ -17,19 +19,32 @@ function generateOrderId() {
   return orderId.substr(0, 12);
 }
 
-export const GET = async () => {
+export const POST = async (req) => {
   try {
+
+    const {plan} = await req.json();
+
+    const {user} = await getuser();
+
+    if (user==null) {
+      return NextResponse.json({
+        success: false,
+        message: "Please LogIn First",
+      });
+    }
+
     const request = {
-      "order_amount": 1.00,
+      "order_amount": plan.total_Price,
       "order_currency": "INR",
       "order_id": generateOrderId(), // Remove await here
       "customer_details": {
-        "customer_id": "arpitkumar",
-        "customer_phone": "9599056856",
-        "customer_name": "Arpit Kumar",
-        "customer_email": "omagrahari55@gmail.com"
+        "customer_id": "TestCustomer",
+        "customer_phone": "9876543210",
+        "customer_name": user.name,
+        "customer_email": user.email
       },
     };
+
     
     const response = await cashfree.PGCreateOrder(request);
     return NextResponse.json({

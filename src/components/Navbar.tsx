@@ -9,14 +9,10 @@ type User = {
     email: string;
   } | null;
 const Navbar = ({user}:{user?:User}) => {
-    console.log(user)
     const [open, setOpen] = useState(false);
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
   };
-
-  
-
   return (
     <>
         <nav className='flex justify-between px-[2rem] py-[1rem] items-center ' >
@@ -42,13 +38,13 @@ const Navbar = ({user}:{user?:User}) => {
         </nav>
             <Drawer open={open} anchor='right'  onClose={toggleDrawer(false)}>
                 <div className='w-full  flex flex-col gap-[3rem] mt-[10rem] p-[3rem] items-center justify-center font-semibold text-[2rem] ' >
-                    <Link className='hover:scale-[1.03] transition-all text-gray-700'  href={"/"} >Home</Link>
-                    <Link className='hover:scale-[1.03] transition-all text-gray-700'  href={"/pricing"} >Pricing</Link>
-                    <Link className='hover:scale-[1.03] transition-all text-gray-700'  href={"/create-alert"} >Create Alert</Link>
+                    <Link className='hover:scale-[1.03] transition-all text-gray-700' onClick={()=>setOpen(false)}  href={"/"} >Home</Link>
+                    <Link className='hover:scale-[1.03] transition-all text-gray-700' onClick={()=>setOpen(false)}    href={"/pricing"} >Pricing</Link>
+                    <Link className='hover:scale-[1.03] transition-all text-gray-700' onClick={()=>setOpen(false)}    href={"/create-alert"} >Create Alert</Link>
                     {
                     user==null?
-                        <Link  className='bg-[#2B7EFE] text-white rounded-[10px] px-[1rem] py-[0.3rem] flex items-center hover:scale-[1.03] transition-all  '  href={"/login"} >LogIn</Link>:
-                        <Link className='bg-[#2B7EFE] text-white rounded-[10px] px-[1rem] py-[0.3rem] flex items-center hover:scale-[1.03] transition-all  ' href={"/user-profile"} >Profile</Link>
+                        <Link  className='bg-[#2B7EFE] text-white rounded-[10px] px-[1rem] py-[0.3rem] flex items-center hover:scale-[1.03] transition-all  ' onClick={()=>setOpen(false)}    href={"/login"} >LogIn</Link>:
+                        <Link className='bg-[#2B7EFE] text-white rounded-[10px] px-[1rem] py-[0.3rem] flex items-center hover:scale-[1.03] transition-all  ' onClick={()=>setOpen(false)}   href={"/user-profile"} >Profile</Link>
                     }
                 </div>
             </Drawer>

@@ -2,6 +2,8 @@
 import React, { useEffect } from 'react'
 import axios from "axios"
 import {load} from '@cashfreepayments/cashfree-js'
+import PlaningCard from '@/components/PlaningCard'
+import Footer from '@/components/Footer'
 
 const page = () => {
   let cashfree;
@@ -9,17 +11,17 @@ const page = () => {
   let insitialzeSDK = async function () {
     cashfree = await load({
       mode: "production",
+      // mode: "sandbox",
     })
   }
 
 
-  const getSessionId = async () => {
+  const getSessionId = async (plan) => {
     try {
-      let res = await axios.get("api/payment")
-      console.log(res.data)
+      let res = await axios.post("api/payment",{
+        plan:plan
+      })
       if(res.data.success){
-        console.log(res.data.data)
-        console.log("this is the order id-->"+res.data.data.order_id)
         const orderId = res.data.data.order_id
         return {sessionId:res.data.data.payment_session_id,orderId:orderId}
       }
@@ -46,12 +48,10 @@ const page = () => {
     }
   }
 
-  const handleClick = async () => {
+  const handleClick = async (plan) => {
     try {
 
-      let {sessionId,orderId} = await getSessionId()
-
-      console.log("this is seession"+sessionId+"order id"+orderId)
+      let {sessionId,orderId} = await getSessionId(plan)
 
       let checkoutOptions = {
         paymentSessionId : sessionId,
@@ -78,15 +78,16 @@ const page = () => {
   }, [])
   
 
+  const handler = async(plan)=>{
+    handleClick(plan)
+  }
+
   return (
     <>
-        <div>
-            <div className='w-[20%] h-[60vh] bg-gray-300 flex justify-center items-center m-auto  px-[1rem] ' >
-                <button onClick={handleClick} className='w-full py-[0.3rem] text-[2rem] bg-blue-500 text-white rounded-[10px] cursor-pointer ' >
-                    Pay Rs9
-                </button>
-            </div>
+        <div className='flex justify-around mt-[4rem] mb-[10rem] flex-wrap gap-y-[4rem]  ' >
+           <PlaningCard handler={handler} />
         </div>
+        <Footer/>
     </>
   )
 }

@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server";
-import { Cashfree } from "cashfree-pg";
+import { Cashfree, CFEnvironment } from "cashfree-pg";
 
 
 const cashfree = new Cashfree(
-    Cashfree.SANDBOX, 
+    CFEnvironment.SANDBOX,
     process.env.Cashfree_App_ID, 
     process.env.Cashfree_Secret
   );
