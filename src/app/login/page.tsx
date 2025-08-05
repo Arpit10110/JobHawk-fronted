@@ -30,7 +30,7 @@ const page = async() => {
                 }} className='bg-gray-800   cursor-pointer hover:scale-[1.02] transition-all  w-[100%] mt-[0.5rem] m-auto py-[0.3rem] text-[1.5rem] text-white font-bold rounded-[5px] ' >LogIn with Google</button> 
             </div>
             <div className=' mt-[1.5rem]  ' >
-              <h3 className='text-center text-gray-700 font-semibold text-[1.5rem]' > Don&#39;t have an account? <Link className='text-blue-600 underline ' href={"/signup"}>Sign up</Link></h3>
+              <h3 className='text-center text-gray-700 font-semibold text-[1.5rem]' > Don&#39;t have an account? <Link className='text-blue-600 underline ' href={"/signup"} prefetch>Sign up</Link></h3>
             </div>
         </div>
     </>
