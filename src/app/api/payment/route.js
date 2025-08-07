@@ -4,8 +4,8 @@ import { Cashfree, CFEnvironment } from "cashfree-pg";
 import { getuser } from '@/lib/getuser';
 
 const cashfree = new Cashfree(
-	CFEnvironment.PRODUCTION,
-	// CFEnvironment.SANDBOX,
+	// CFEnvironment.PRODUCTION,
+	CFEnvironment.SANDBOX,
   process.env.Cashfree_App_ID, 
   process.env.Cashfree_Secret
 );
@@ -24,7 +24,8 @@ export const POST = async (req) => {
 
     const {plan} = await req.json();
 
-    const {user} = await getuser();
+    const user = await getuser();
+
 
     if (user==null) {
       return NextResponse.json({
@@ -33,6 +34,8 @@ export const POST = async (req) => {
       });
     }
 
+    const user_data = user.user;
+    
     const request = {
       "order_amount": plan.total_Price,
       "order_currency": "INR",
@@ -40,8 +43,8 @@ export const POST = async (req) => {
       "customer_details": {
         "customer_id": "TestCustomer",
         "customer_phone": "9876543210",
-        "customer_name": user.name,
-        "customer_email": user.email
+        "customer_name": user_data.name,
+        "customer_email": user_data.email
       },
     };
 

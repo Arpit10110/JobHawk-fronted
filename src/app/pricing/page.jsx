@@ -4,14 +4,17 @@ import axios from "axios"
 import {load} from '@cashfreepayments/cashfree-js'
 import PlaningCard from '@/components/PlaningCard'
 import Footer from '@/components/Footer'
-
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
 const page = () => {
   let cashfree;
 
+  const [open, setOpen] = React.useState(false);
+
   let insitialzeSDK = async function () {
     cashfree = await load({
-      mode: "production",
-      // mode: "sandbox",
+      // mode: "production",
+      mode: "sandbox",
     })
   }
 
@@ -76,14 +79,43 @@ const page = () => {
   useEffect(() => {
     insitialzeSDK()
   }, [])
+
+
+  const purchaseplan = async(plan)=>{
+    try {
+      const res = await axios.post("api/purchaseplan",{
+        plan:plan
+      })
+      console.log(res);
+    } catch (error) {
+      console.log(error)
+      setOpen(false);
+    }
+  }
   
 
   const handler = async(plan)=>{
-    handleClick(plan)
+    try {
+      setOpen(true);
+      if(plan.name == "Free"){
+        purchaseplan(plan)
+      }else{
+        handleClick(plan)
+      }
+    } catch (error) {
+      setOpen(false);
+      console.log(error)
+    }
   }
 
   return (
     <>
+     <Backdrop
+        sx={(theme) => ({ color: '#fff', zIndex: theme.zIndex.drawer + 1 })}
+        open={open}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
         <div className='flex justify-around mt-[4rem] mb-[10rem] flex-wrap gap-y-[4rem]  ' >
            <PlaningCard handler={handler} />
         </div>
