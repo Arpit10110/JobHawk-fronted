@@ -18,7 +18,7 @@ type UserPlan = {
   plan_user_id: string;
   };
 
-const page = () => {
+const Page = () => {
   const router = useRouter()
   const [UserCurrentPlan,SetUserCurrentPlan] = useState<UserPlan | null>(null);
   const [open, setOpen] = useState(false);
@@ -95,4 +95,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page
