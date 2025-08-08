@@ -5,7 +5,7 @@ import axios from 'axios'
 import { useRouter } from 'next/navigation'
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
-import Dialog, { DialogProps } from '@mui/material/Dialog';
+import Dialog from '@mui/material/Dialog';
 import Link from 'next/link'
 
 
@@ -23,8 +23,7 @@ const page = () => {
   const [UserCurrentPlan,SetUserCurrentPlan] = useState<UserPlan | null>(null);
   const [open, setOpen] = useState(false);
   const [Dialogopen, setDialogopen] = useState(false);
-  const [fullWidth, setFullWidth] = React.useState(true);
-  const [maxWidth, setMaxWidth] = React.useState<DialogProps['maxWidth']>('sm');
+
 
 
   const getuserplan = async ()=>{
@@ -66,8 +65,8 @@ const page = () => {
     <>
 
       <Dialog
-        fullWidth={fullWidth}
-        maxWidth={maxWidth}
+        fullWidth={true}
+        maxWidth={'sm'}
         open={Dialogopen}
       >
       <div  className='w-full bg-gray-900 py-[3rem] px-[2rem] flex flex-col gap-[1rem]  ' >

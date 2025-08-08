@@ -3,7 +3,7 @@ import { getuser } from "@/lib/getuser";
 import { connectDB } from "@/db/dbconnect";
 import { PlanModel } from "@/model/planmodel";
 import { UserModel } from "@/model/usermode";
-export const GET = async(req:Request)=>{
+export const GET = async()=>{
     try {
 
         const user = await getuser();
