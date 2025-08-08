@@ -6,6 +6,8 @@ import PlaningCard from '@/components/PlaningCard'
 import Footer from '@/components/Footer'
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
+import { ToastContainer, toast } from 'react-toastify'
+
 const page = () => {
   let cashfree;
 
@@ -27,13 +29,36 @@ const page = () => {
       if(res.data.success){
         const orderId = res.data.data.order_id
         return {sessionId:res.data.data.payment_session_id,orderId:orderId}
+      }else{
+        setOpen(false);
+      toast.error("Something went Wrong !!!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
       }
     } catch (error) {
       console.log(error)
+      setOpen(false);
+      toast.error("Something went Wrong !!!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
     }
   }
 
-  const verifyPayment = async (orderId) => {
+  const verifyPayment = async (orderId,plan) => {
     try {
       console.log("This is the order id-->"+orderId)
       let res = await axios.post("api/paymentverify", {
@@ -41,13 +66,35 @@ const page = () => {
       })
       console.log(res.data)
       if(res.data.success){
-        alert("payment verified")
+        await purchaseplan(plan)
       }else{
         alert("payment failed")
+        setOpen(false);
+        toast.error("Payment Failed !!!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          });
       }
 
     } catch (error) {
       console.log(error)
+      setOpen(false);
+      toast.error("Something went Wrong !!!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
     }
   }
 
@@ -64,14 +111,35 @@ const page = () => {
      const payment_result = await cashfree.checkout(checkoutOptions)
      if(payment_result.paymentDetails){
       console.log(payment_result.paymentDetails)
-      alert(payment_result.paymentDetails.paymentMessage)
-      verifyPayment(orderId)
+      // alert(payment_result.paymentDetails.paymentMessage)
+      verifyPayment(orderId,plan)
      }else{
-       alert(payment_result.error.message)
+      setOpen(false);
+      toast.error(payment_result.error.message, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
      }
 
     } catch (error) {
       console.log(error)
+      setOpen(false);
+      toast.error("Something went Wrong !!!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
     }
 
   }
@@ -85,8 +153,32 @@ const page = () => {
     try {
       const res = await axios.post("api/purchaseplan",{
         plan:plan
-      })
-      console.log(res);
+      }) 
+      if(res.data.success){
+         toast.success("Plan Purchased Successfully", {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                });
+                setOpen(false);
+      }else{
+         toast.error("Something went Wrong !!!", {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                });
+                setOpen(false);
+      }
     } catch (error) {
       console.log(error)
       setOpen(false);
@@ -120,6 +212,18 @@ const page = () => {
            <PlaningCard handler={handler} />
         </div>
         <Footer/>
+           <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        />
     </>
   )
 }
