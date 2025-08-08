@@ -8,13 +8,16 @@ import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 import { ToastContainer, toast } from 'react-toastify'
 import { useRouter } from 'next/navigation'
+import LoginDrawer from '@/components/LoginDrawer'
+
 const page = () => {
   const router = useRouter()
   let cashfree;
   const [open, setOpen] = useState(false);
   const [UserCurrnentPlan,SetUserCurrnentPlan] = useState(null);
-
-
+  const [IsUserLogin,setIsUserLogin] = useState(false);
+  const [Dialogopen, setDialogopen] = useState(false);
+  
   let insitialzeSDK = async function () {
     cashfree = await load({
       // mode: "production",
@@ -152,10 +155,14 @@ const page = () => {
       let res = await axios.get("api/getuserplan");
       if(res.data.success){
         setOpen(false);
+        setIsUserLogin(true);
         SetUserCurrnentPlan(res.data.data);
         console.log(res.data.data);
       }else{
-        router.push("/login");
+        if(res.data.message=="Please Login First"){
+          setIsUserLogin(false);
+          setOpen(false);
+        }
       }
     } catch (error) {
       console.log(error)
@@ -219,10 +226,15 @@ const page = () => {
   const handler = async(plan)=>{
     try {
       setOpen(true);
-      if(plan.name == "Free"){
-        purchaseplan(plan)
+      if(!IsUserLogin){
+        setOpen(false);
+        setDialogopen(true)
       }else{
-        handleClick(plan)
+        if(plan.name == "Free"){
+          purchaseplan(plan)
+        }else{
+          handleClick(plan)
+        }
       }
     } catch (error) {
       setOpen(false);
@@ -238,6 +250,9 @@ const page = () => {
       >
         <CircularProgress color="inherit" />
       </Backdrop>
+
+      <LoginDrawer Dialogopen={Dialogopen}  />
+
         <div className='flex justify-around mt-[4rem] mb-[10rem] flex-wrap gap-y-[4rem]  ' >
            <PlaningCard handler={handler} />
         </div>

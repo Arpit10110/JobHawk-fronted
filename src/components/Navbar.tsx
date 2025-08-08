@@ -23,7 +23,7 @@ const Navbar = ({user}:{user?:User}) => {
     <>
         <nav className='flex justify-between px-[2rem] py-[1rem] items-center ' >
             <div>
-                <h2 className=' bungee-font text-[2.5rem] font-semibold ' >JobHawk</h2>
+                <Link href={"/"} className=' bungee-font text-[2.5rem] font-semibold ' >JobHawk</Link>
             </div>
             <div className='flex max-mobile:hidden gap-[2.5rem] items-center text-[1.7rem] font-semibold max-mobile:gap-[2rem]  ' >
                 <Link className='hover:scale-[1.03] transition-all text-gray-700'  href={"/"} prefetch>Home</Link>

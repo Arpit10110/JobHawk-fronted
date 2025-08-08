@@ -2,12 +2,11 @@
 import StepperForm from '@/components/StepperForm'
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import { useRouter } from 'next/navigation'
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 import Dialog from '@mui/material/Dialog';
 import Link from 'next/link'
-
+import LoginDrawer from '@/components/LoginDrawer'
 
 type UserPlan = {
   plan_name: string;
@@ -19,11 +18,10 @@ type UserPlan = {
   };
 
 const Page = () => {
-  const router = useRouter()
   const [UserCurrentPlan,SetUserCurrentPlan] = useState<UserPlan | null>(null);
   const [open, setOpen] = useState(false);
   const [Dialogopen, setDialogopen] = useState(false);
-
+  const [IsUserLogin,setIsUserLogin] = useState(false);
 
 
   const getuserplan = async ()=>{
@@ -31,21 +29,21 @@ const Page = () => {
       setOpen(true);
       const res = await axios.get("api/getuserplan");
       if(res.data.message == "Please Login First"){
-        router.push("/login")
-      }
-      if(res.data.success){
+        setOpen(false);
+      }else{
+        setIsUserLogin(true);
+        if(res.data.success){
           if(res.data.data == null){
             setDialogopen(true)
           setOpen(false);
           }else{
           setOpen(false);
-          console.log(res.data.data);
             SetUserCurrentPlan(res.data.data);
           }
       }else{
         setOpen(false);
       }
-
+      }
     } catch (error) {
       console.log(error)
       setOpen(false);
@@ -59,11 +57,13 @@ const Page = () => {
   
 
 
-
-
   return (
     <>
-
+    {
+      open==false?
+      <LoginDrawer Dialogopen={!IsUserLogin}/>:
+      <></>
+    }
       <Dialog
         fullWidth={true}
         maxWidth={'sm'}
