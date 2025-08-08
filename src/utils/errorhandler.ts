@@ -1,0 +1,16 @@
+import { toast } from 'react-toastify'
+
+
+export const ToastErrorHandler = (message="Something went Wrong !!!")=>{    
+    console.log(message)
+    return  toast.error(message, {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: false,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    });
+}

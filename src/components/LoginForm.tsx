@@ -6,11 +6,14 @@ import { useRouter } from 'next/navigation'
 import { ToastContainer, toast } from 'react-toastify'
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
+import { ToastErrorHandler } from '@/utils/errorhandler'
+
 const LoginForm = () => {
   const router = useRouter();
   const [email,setemail] = useState('')
   const [password,setpassword] = useState('')
   const [open, setOpen] = React.useState(false);
+
   const handleloginsubmit = async(e:React.FormEvent<HTMLFormElement>)=>{
     e.preventDefault()
     setOpen(true);
@@ -24,20 +27,13 @@ const LoginForm = () => {
         router.refresh();
       }else{
     setOpen(false);
-        toast.error(res.data.message, {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: false,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-                });
+    ToastErrorHandler(res.data.message)
       }
     } catch (error) {
       console.log(error)
       setOpen(false)
+    ToastErrorHandler()
+
     }
   }
   return (

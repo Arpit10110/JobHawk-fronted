@@ -6,6 +6,7 @@ import { ToastContainer, toast } from 'react-toastify'
 import { useRouter } from 'next/navigation'
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
+import { ToastErrorHandler } from '@/utils/errorhandler'
 const SignupForm = () => {
   const router = useRouter()
   const [email, setEmail] = useState('')
@@ -19,25 +20,16 @@ const SignupForm = () => {
       const res = await axios.post("api/signup",{
         name,email,password
       })
-      console.log(res)
       if(res.data.success){
         router.push("/login")
       }else{
         setOpen(false)
-        toast.error(res.data.message, {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: false,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-                });
+        ToastErrorHandler(res.data.message)
       }
     } catch (error) {
       setOpen(false)
       console.log(error)
+      ToastErrorHandler()
     }
   }
 
