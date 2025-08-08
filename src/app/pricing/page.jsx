@@ -157,7 +157,6 @@ const page = () => {
         setOpen(false);
         setIsUserLogin(true);
         SetUserCurrnentPlan(res.data.data);
-        console.log(res.data.data);
       }else{
         if(res.data.message=="Please Login First"){
           setIsUserLogin(false);
