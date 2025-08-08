@@ -21,6 +21,7 @@ const LoginForm = () => {
       console.log(res)
       if(res.data.success){
         router.push("/")
+        router.refresh();
       }else{
     setOpen(false);
         toast.error(res.data.message, {

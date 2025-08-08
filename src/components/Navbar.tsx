@@ -1,6 +1,6 @@
 "use client"
 import Link from 'next/link'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import MenuIcon from '@mui/icons-material/Menu';
 import { Drawer } from '@mui/material';
 type User = {
@@ -13,6 +13,12 @@ const Navbar = ({user}:{user?:User}) => {
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
   };
+
+  useEffect(() => {
+   
+  },[user])
+  
+
   return (
     <>
         <nav className='flex justify-between px-[2rem] py-[1rem] items-center ' >

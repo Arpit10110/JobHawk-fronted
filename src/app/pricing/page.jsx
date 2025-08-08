@@ -1,5 +1,5 @@
 "use client"
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from "axios"
 import {load} from '@cashfreepayments/cashfree-js'
 import PlaningCard from '@/components/PlaningCard'
@@ -7,11 +7,13 @@ import Footer from '@/components/Footer'
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 import { ToastContainer, toast } from 'react-toastify'
-
+import { useRouter } from 'next/navigation'
 const page = () => {
+  const router = useRouter()
   let cashfree;
+  const [open, setOpen] = useState(false);
+  const [UserCurrnentPlan,SetUserCurrnentPlan] = useState(null);
 
-  const [open, setOpen] = React.useState(false);
 
   let insitialzeSDK = async function () {
     cashfree = await load({
@@ -144,8 +146,36 @@ const page = () => {
 
   }
 
+  const getuserplan = async ()=>{
+    try {
+      setOpen(true);
+      let res = await axios.get("api/getuserplan");
+      if(res.data.success){
+        setOpen(false);
+        SetUserCurrnentPlan(res.data.data);
+        console.log(res.data.data);
+      }else{
+        router.push("/login");
+      }
+    } catch (error) {
+      console.log(error)
+      setOpen(false);
+      toast.error("Something went Wrong !!!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
+    }
+  }
+
   useEffect(() => {
     insitialzeSDK()
+    getuserplan()
   }, [])
 
 

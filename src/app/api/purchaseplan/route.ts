@@ -17,8 +17,8 @@ export const POST = async(req:Request)=>{
         const user_data = user.user;
         const user_fulldata = await UserModel.findOne( {email:user_data?.email} ) ;
 
-        let plan_start_date = new Date();
-        let end_date = new Date(plan_start_date);
+        const plan_start_date = new Date();
+        const end_date = new Date(plan_start_date);
         if(plan.name == "Premium"){
             // add 2 months in this plan
             end_date.setDate(end_date.getDate() + 60); 

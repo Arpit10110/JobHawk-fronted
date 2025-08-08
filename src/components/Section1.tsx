@@ -15,7 +15,7 @@ const Section1 = () => {
                 </p>
                 <div className='flex gap-[5rem] my-[2rem]   ' >
                     <Link  href={"/create-alert"} className=' bg-blue-500 rounded-[10px] py-[0.7rem] px-[2rem] text-[1.5rem] text-white font-bold shadow-[0px_4px_19px_8px_#4042434d] hover:scale-[1.04] transition-all' >Create Alert</Link>
-                    <Link href={"/"} className=' bg-green-500 rounded-[10px] py-[0.7rem] px-[2rem] text-[1.5rem] text-white font-bold shadow-[0px_4px_19px_8px_#4042434d] hover:scale-[1.04] transition-all' >View Pricing</Link>
+                    <Link href={"/pricing"} className=' bg-green-500 rounded-[10px] py-[0.7rem] px-[2rem] text-[1.5rem] text-white font-bold shadow-[0px_4px_19px_8px_#4042434d] hover:scale-[1.04] transition-all' >View Pricing</Link>
                 </div>
             </div>
             <div className='w-full' >
