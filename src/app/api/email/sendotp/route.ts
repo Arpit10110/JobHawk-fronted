@@ -19,9 +19,13 @@ export const POST = async(req:Request)=>{
         const otpString = otp.toString().padStart(6, '0'); // Ensure OTP is 6 digits
         const hashedOtp = await bcrypt.hash(otpString, 10);
         await OtpModel.create({email:email,otp:hashedOtp});
-        await SendOtpEmail(email,otpString);
+        const email_info=await SendOtpEmail(email,otpString);
+        console.log(email_info);
         return NextResponse.json({success:true, message: "OTP has been sent to your email."}, {status: 200});
     } catch (error) {
-        return NextResponse.json({error: "An error occurred while processing your request."}, {status: 500});
+        return NextResponse.json({
+             success:false,
+             error:error
+        });
     }
 }

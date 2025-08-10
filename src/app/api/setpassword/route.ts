@@ -20,6 +20,9 @@ export const POST = async(req:Request)=>{
             return NextResponse.json({success:false,message: "Invalid Data."});
         }
     } catch (error) {
-        return NextResponse.json({error: "An error occurred while processing your request."});
+        return NextResponse.json({
+            success:false,
+            error:error
+       });
     }
 }

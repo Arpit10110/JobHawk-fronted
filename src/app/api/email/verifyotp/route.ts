@@ -26,6 +26,9 @@ export const POST = async(req:Request)=>{
         }
  
     } catch (error) {
-        return NextResponse.json({error: "An error occurred while processing your request."}, {status: 500});
+        return NextResponse.json({
+            success:false,
+            error:error
+       });
     }
 }

@@ -13,4 +13,5 @@ export const SendOtpEmail =async(user_email:string,otp:string)=>{
         subject: `Your JobHawk verification code'`,
         html: OtpHtml(otp), // Use the generated HTML content
       });
+      return info;
 }
