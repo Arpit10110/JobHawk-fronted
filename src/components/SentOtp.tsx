@@ -4,12 +4,15 @@ import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import React from 'react'
 import { ToastContainer } from 'react-toastify';
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
+import { ToastSuccessHandler } from '@/utils/successhander';
 
 type prop_typo = {
     method: string;
     user_email: string | null | undefined;
 }
-
+ 
 const SentOtp = ({method,user_email}:prop_typo) => {
     const router = useRouter();
     const [box_message, setBoxMessage] = React.useState<string>("We'll send a 6-digit OTP to your email:");
@@ -18,6 +21,7 @@ const SentOtp = ({method,user_email}:prop_typo) => {
     const [otpVerified, setOtpVerified] = React.useState<boolean>(false);
     const [newPassword, setNewPassword] = React.useState<string>("");
     const [confirmpassword, setConfirmpassword] = React.useState<string>("");
+    const [open, setOpen] = React.useState(false);
 
     const sendotp = async()=>{
         try {
@@ -36,15 +40,19 @@ const SentOtp = ({method,user_email}:prop_typo) => {
 
     const handleotp = async()=>{
         try {
+            setOpen(true);
             const res = await sendotp();
             if(res){
                 setOtpsend(true)
                 setBoxMessage("OTP has been sent to your email: ");
-                alert("OTP has been sent to your email: " + user_email);
+                setOpen(false);
+                ToastSuccessHandler("OTP has been sent successfully.");
             }else{
                 ToastErrorHandler("Failed to send OTP. Please try again later.");
+                setOpen(false);
             }
         } catch (error) {
+            setOpen(false);
             console.log(error)
             ToastErrorHandler("An error occurred while sending OTP. Please try again later.");
         }
@@ -54,6 +62,7 @@ const SentOtp = ({method,user_email}:prop_typo) => {
     const verifyotp = async(e:React.FormEvent<HTMLFormElement>)=>{
         e.preventDefault();
         try {
+            setOpen(true);
             const res = await axios.post("/api/email/verifyotp",{
                 email: user_email,
                 otp: otp
@@ -62,11 +71,14 @@ const SentOtp = ({method,user_email}:prop_typo) => {
             if(res.data.success){
                 setOtpVerified(true);
                 setBoxMessage("Please set your password now.");
-                alert("OTP has been verified successfully. You can now set your password.");
+                setOpen(false);
+                ToastSuccessHandler("OTP has been verified successfully.");
             }else{
                 ToastErrorHandler("Invalid OTP. Please try again.");
+                 setOpen(false);
             }
         } catch (error) {
+            setOpen(false);
             console.log(error)
             ToastErrorHandler("An error occurred while verifying OTP. Please try again later.");
         }
@@ -74,9 +86,11 @@ const SentOtp = ({method,user_email}:prop_typo) => {
 
     const AddnewPassword = async(e:React.FormEvent<HTMLFormElement>)=>{
         e.preventDefault();
+        setOpen(true);
         try {
             if(newPassword !== confirmpassword){
                 ToastErrorHandler("Passwords do not match. Please try again.");
+                setOpen(false);
             }else{
                 const res = await axios.post("/api/setpassword",{
                     email: user_email,
@@ -86,9 +100,11 @@ const SentOtp = ({method,user_email}:prop_typo) => {
                     router.push("/profile");
                 }else{
                     ToastErrorHandler();
+                    setOpen(false);
                 }
             }
         } catch (error) {
+            setOpen(false);
             console.log(error)
             ToastErrorHandler()
         }
@@ -96,6 +112,13 @@ const SentOtp = ({method,user_email}:prop_typo) => {
 
   return (
     <>
+      <Backdrop
+            sx={(theme) => ({ color: '#fff', zIndex: theme.zIndex.drawer + 1 })}
+            open={open}
+          >
+            <CircularProgress color="inherit" />
+      </Backdrop>
+
         <div className={`shadow-[0px_4px_19px_8px_#4042434d] w-fit px-[2rem] py-[1.5rem] flex flex-col gap-[2rem] bg-gray-200 rounded-[10px] items-center m-auto ${otpVerified?"mt-[5rem]":"mt-[8rem] "} `} >
             <h2 className='text-[2rem] font-semibold pb-[0.4rem] border-b-[1px] w-full text-center border-gray-400 ' >{method}</h2>
             <h2 className='text-[1.5rem]' >{box_message} <span className='font-bold' >{user_email}</span></h2>

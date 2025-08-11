@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server"; 
 import { connectDB } from "@/db/dbconnect"; 
 import { UserModel } from "@/model/usermode"; 
+import { SendWelomeEmail } from "@/constants/email_constants";
 
 export const POST = async(req:Request)=>{
     try {
@@ -13,6 +14,7 @@ export const POST = async(req:Request)=>{
             email:email,
             googleId:googleid
           })
+          SendWelomeEmail(email)
         }
         return NextResponse.json({success:true})
     } catch (error) {

@@ -1,5 +1,5 @@
 "use client"
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import axios from "axios"
 import {load} from '@cashfreepayments/cashfree-js'
 import PlaningCard from '@/components/PlaningCard'
@@ -9,22 +9,26 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { ToastContainer, toast } from 'react-toastify'
 import { useRouter } from 'next/navigation'
 import LoginDrawer from '@/components/LoginDrawer'
+import { ToastErrorHandler } from '@/utils/errorhandler'
 
 const page = () => {
   const router = useRouter()
-  let cashfree;
+  const cashfreeRef = useRef(null)
   const [open, setOpen] = useState(false);
   const [UserCurrnentPlan,SetUserCurrnentPlan] = useState(null);
   const [IsUserLogin,setIsUserLogin] = useState(false);
   const [Dialogopen, setDialogopen] = useState(false);
   
-  let insitialzeSDK = async function () {
-    cashfree = await load({
-      // mode: "production",
-      mode: "sandbox",
-    })
-  }
-
+  const initializeSDK = async () => {
+    try {
+    // Use "production" in live
+    const instance = await load({ mode: "sandbox" })
+    cashfreeRef.current = instance
+    } catch (e) {
+    console.error("Cashfree SDK load failed", e)
+    ToastErrorHandler("Unable to load payment SDK. Please refresh the page.")
+    }
+    }
 
   const getSessionId = async (plan) => {
     try {
@@ -105,15 +109,27 @@ const page = () => {
 
   const handleClick = async (plan) => {
     try {
+      // Ensure SDK is ready
+      if (!cashfreeRef.current) {
+        // Attempt to initialize if not yet ready
+        await initializeSDK()
+      }
+      if (!cashfreeRef.current) {
+        ToastErrorHandler("Payment Gateway not ready. Please try again in a moment.")
+        setOpen(false)
+        return
+      }
 
       let {sessionId,orderId} = await getSessionId(plan)
+      console.log(sessionId)
 
       let checkoutOptions = {
         paymentSessionId : sessionId,
         redirectTarget:"_modal",
       }
 
-     const payment_result = await cashfree.checkout(checkoutOptions)
+     const payment_result = await cashfreeRef.current.checkout(checkoutOptions)
+
      if(payment_result.paymentDetails){
       console.log(payment_result.paymentDetails)
       // alert(payment_result.paymentDetails.paymentMessage)
@@ -180,7 +196,7 @@ const page = () => {
   }
 
   useEffect(() => {
-    insitialzeSDK()
+    initializeSDK()
     getuserplan()
   }, [])
 

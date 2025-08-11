@@ -1,8 +1,8 @@
 import { toast } from 'react-toastify'
 
 
-export const ToastErrorHandler = (message="Something went Wrong !!!")=>{    
-    return  toast.error(message, {
+export const ToastSuccessHandler = (message:string)=>{    
+    return  toast.success(message, {
                     position: "top-right",
                     autoClose: 5000,
                     hideProgressBar: false,

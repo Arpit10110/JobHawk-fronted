@@ -3,6 +3,7 @@ import { PlanModel } from "@/model/planmodel";
 import { UserModel } from "@/model/usermode";
 import { getuser } from "@/lib/getuser";
 import { connectDB } from "@/db/dbconnect";
+import { SendPlanPurchaseEmail } from "@/constants/email_constants";
 export const POST = async(req:Request)=>{
     try {
         const {plan} = await req.json()
@@ -34,7 +35,9 @@ export const POST = async(req:Request)=>{
             plan_user_id:user_fulldata._id,
             plan_price:plan.total_Price
         })
-
+        if(user_data?.email){
+            await SendPlanPurchaseEmail(user_fulldata.email,plan.name,plan.total_Price,plan_start_date.toString(),end_date.toString()) 
+        }
         return NextResponse.json({
             success:true,
             message:"Plan Purchased Successfully",
