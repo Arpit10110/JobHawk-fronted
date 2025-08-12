@@ -127,13 +127,13 @@ const SentOtp = ({method,user_email,setdirty_value}:prop_typo) => {
         const originalPush = router.push;
         const originalReplace = router.replace as typeof router.push;
     
-        (router as any).push = (href: string, opts?: any) => {
+        (router as typeof router).push = (href: string, opts?: any) => {
           if (!dirty || window.confirm('If you leave, your OTP data will be lost. Continue?')) {
             return originalPush.call(router, href, opts);
           }
         };
     
-        (router as any).replace = (href: string, opts?: any) => {
+        (router as typeof router).replace = (href: string, opts?: any) => {
           if (!dirty || window.confirm('If you leave, your OTP data will be lost. Continue?')) {
             return originalReplace.call(router, href, opts);
           }
@@ -141,8 +141,8 @@ const SentOtp = ({method,user_email,setdirty_value}:prop_typo) => {
     
         return () => {
           window.removeEventListener('beforeunload', handleBeforeUnload);
-          (router as any).push = originalPush;
-          (router as any).replace = originalReplace;
+          (router as typeof router).push = originalPush;
+          (router as typeof router).replace = originalReplace;
         };
       }, [router, dirty]);
     
