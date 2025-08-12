@@ -116,27 +116,31 @@ const SentOtp = ({method,user_email,setdirty_value}:prop_typo) => {
     }
 
     useEffect(() => {
-        // Warn on refresh/close
         const handleBeforeUnload = (e: BeforeUnloadEvent) => {
           if (!dirty) return;
           e.preventDefault();
         };
+    
         window.addEventListener('beforeunload', handleBeforeUnload);
     
-        // Intercept client navigations (push/replace)
-        const originalPush = router.push;
-        const originalReplace = router.replace as typeof router.push;
+        // Save original methods with correct types
+        const originalPush: typeof router.push = router.push;
+        const originalReplace: typeof router.replace = router.replace;
     
-        (router as typeof router).push = (href: string, opts?: any) => {
+        // Here we use `Parameters` and `ReturnType` to preserve type safety
+        (router as typeof router).push = (...args: Parameters<typeof router.push>) => {
           if (!dirty || window.confirm('If you leave, your OTP data will be lost. Continue?')) {
-            return originalPush.call(router, href, opts);
+            return originalPush(...args);
           }
+          // Return a resolved Promise to satisfy the function contract
+          return Promise.resolve();
         };
     
-        (router as typeof router).replace = (href: string, opts?: any) => {
+        (router as typeof router).replace = (...args: Parameters<typeof router.replace>) => {
           if (!dirty || window.confirm('If you leave, your OTP data will be lost. Continue?')) {
-            return originalReplace.call(router, href, opts);
+            return originalReplace(...args);
           }
+          return Promise.resolve();
         };
     
         return () => {
