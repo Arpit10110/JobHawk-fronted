@@ -7,6 +7,7 @@ import { ToastContainer } from 'react-toastify'
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 import { ToastErrorHandler } from '@/utils/errorhandler'
+import Link from 'next/link'
 
 const LoginForm = () => {
   const router = useRouter();
@@ -47,6 +48,7 @@ const LoginForm = () => {
     <form onSubmit={handleloginsubmit} className='w-full flex flex-col gap-[1rem]  ' >
         <input value={email} onChange={(e)=>setemail(e.target.value)} type="email" className='w-full bg-white text-[1.3rem] p-[0.4rem] rounded-[5px] text-black border-[1px] border-gray-300 font-semibold  ' placeholder='Enter the email' required/>
         <input value={password} onChange={(e)=>setpassword(e.target.value)}  type="password" className='w-full bg-white text-[1.3rem] p-[0.4rem] rounded-[5px] text-black border-[1px] border-gray-300 font-semibold  ' placeholder='Enter the password' required/>
+        <Link href={"/password/forgetpassword"} className="text-[1.3rem] text-blue-500 underline " >Forgot password?</Link>
         <button className='bg-gray-800   cursor-pointer hover:scale-[1.02] transition-all  w-[100%] mt-[0.5rem] m-auto py-[0.3rem] text-[1.5rem] text-white font-bold rounded-[5px] ' >LogIn</button> 
     </form>
         <ToastContainer

@@ -13,7 +13,7 @@ const page = async() => {
   return (
     <>  
         <div>
-            <SentOtp method='Set Your Password' user_email={user.user?.email} /> 
+            <SentOtp method='Set Your Password' user_email={user.user?.email} setdirty_value={false} /> 
         </div>
     </>
   )

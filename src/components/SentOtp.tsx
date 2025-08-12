@@ -2,7 +2,7 @@
 import { ToastErrorHandler } from '@/utils/errorhandler';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
-import React from 'react'
+import React, { useEffect } from 'react'
 import { ToastContainer } from 'react-toastify';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -11,9 +11,10 @@ import { ToastSuccessHandler } from '@/utils/successhander';
 type prop_typo = {
     method: string;
     user_email: string | null | undefined;
+    setdirty_value: boolean;
 }
  
-const SentOtp = ({method,user_email}:prop_typo) => {
+const SentOtp = ({method,user_email,setdirty_value}:prop_typo) => {
     const router = useRouter();
     const [box_message, setBoxMessage] = React.useState<string>("We'll send a 6-digit OTP to your email:");
     const [otpsend, setOtpsend] = React.useState<boolean>(false);
@@ -22,6 +23,7 @@ const SentOtp = ({method,user_email}:prop_typo) => {
     const [newPassword, setNewPassword] = React.useState<string>("");
     const [confirmpassword, setConfirmpassword] = React.useState<string>("");
     const [open, setOpen] = React.useState(false);
+    const [dirty, setDirty] = React.useState(setdirty_value);
 
     const sendotp = async()=>{
         try {
@@ -41,6 +43,7 @@ const SentOtp = ({method,user_email}:prop_typo) => {
     const handleotp = async()=>{
         try {
             setOpen(true);
+            setDirty(true);
             const res = await sendotp();
             if(res){
                 setOtpsend(true)
@@ -92,6 +95,7 @@ const SentOtp = ({method,user_email}:prop_typo) => {
                 ToastErrorHandler("Passwords do not match. Please try again.");
                 setOpen(false);
             }else{
+                setDirty(false);
                 const res = await axios.post("/api/setpassword",{
                     email: user_email,
                     new_password: newPassword
@@ -101,6 +105,7 @@ const SentOtp = ({method,user_email}:prop_typo) => {
                 }else{
                     ToastErrorHandler();
                     setOpen(false);
+                    setDirty(true);
                 }
             }
         } catch (error) {
@@ -109,6 +114,39 @@ const SentOtp = ({method,user_email}:prop_typo) => {
             ToastErrorHandler()
         }
     }
+
+    useEffect(() => {
+        // Warn on refresh/close
+        const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+          if (!dirty) return;
+          e.preventDefault();
+        };
+        window.addEventListener('beforeunload', handleBeforeUnload);
+    
+        // Intercept client navigations (push/replace)
+        const originalPush = router.push;
+        const originalReplace = router.replace as typeof router.push;
+    
+        (router as any).push = (href: string, opts?: any) => {
+          if (!dirty || window.confirm('If you leave, your OTP data will be lost. Continue?')) {
+            return originalPush.call(router, href, opts);
+          }
+        };
+    
+        (router as any).replace = (href: string, opts?: any) => {
+          if (!dirty || window.confirm('If you leave, your OTP data will be lost. Continue?')) {
+            return originalReplace.call(router, href, opts);
+          }
+        };
+    
+        return () => {
+          window.removeEventListener('beforeunload', handleBeforeUnload);
+          (router as any).push = originalPush;
+          (router as any).replace = originalReplace;
+        };
+      }, [router, dirty]);
+    
+
 
   return (
     <>
