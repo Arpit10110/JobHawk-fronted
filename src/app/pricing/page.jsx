@@ -268,10 +268,16 @@ const page = () => {
 
       <LoginDrawer Dialogopen={Dialogopen}  />
 
-        <div className='flex justify-around mt-[4rem] mb-[10rem] flex-wrap gap-y-[4rem]  ' >
-           <PlaningCard handler={handler} />
-        </div>
-        <Footer/>
+      <div className='  flex flex-col justify-center max-tablet:mt-[2rem] max-tablet:gap-[2rem] mb-[5rem] gap-[3rem]  ' >
+          <div className='m-auto  ' >
+              <h2 className='text-[4rem] font-[500] text-gray-800 text-center rubik-font ' >Choose Your Plan</h2> 
+              <h3 className='text-center font-semibold text-gray-600 text-[1.5rem] rubik-font ' >Affordable and adaptable pricing to suit your goals.</h3>
+          </div>
+          <div className='flex w-full justify-around mt-[4rem] mb-[10rem] max-tablet:mb-[5rem] flex-wrap gap-y-[4rem] items-start ' >
+            <PlaningCard handler={handler} />
+          </div>
+      </div>
+      <Footer/>
            <ToastContainer
         position="top-right"
         autoClose={5000}
