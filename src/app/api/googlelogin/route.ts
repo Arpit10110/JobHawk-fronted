@@ -5,7 +5,7 @@ import { SendWelomeEmail } from "@/constants/email_constants";
 
 export const POST = async(req:Request)=>{
     try {
-        const {email,name,googleid,image} = await req.json();
+        const {email,name,googleid} = await req.json();
         if(!email || !name || !googleid){
             return NextResponse.json({success:false,message:"Missing required fields"})
         }
