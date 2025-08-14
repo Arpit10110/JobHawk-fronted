@@ -34,7 +34,7 @@ const PlaningCard = ({handler}:{handler: (plan: PlanType) => void}) => {
        {
         pricingPlans.map((plan,index:number)=>{
             return(
-                <div className={` ${plan.name==="Pro"? "top-[-3rem] border-[#2da7ffb4] ":"top-[0rem] border-[#20202032] "} relative max-tablet:top-[0rem]  border-[2.5px] shadow-[0px_4px_19px_8px_#4042434d] hover:scale-[1.02] transition-all w-[28%] max-tablet:w-[60%] max-mobile:w-[70%] max-smobile:w-[80%] bg-gray-100  rounded-[10px] p-[2rem] flex flex-col gap-[1rem]  cursor-default `} key={index} > 
+                <div data-aos="fade-up"  data-aos-delay="300" data-aos-duration="3000" className={` ${plan.name==="Pro"? "top-[-3rem] border-[#2da7ffb4] ":"top-[0rem] border-[#20202032] "} relative max-tablet:top-[0rem]  border-[2.5px] shadow-[0px_4px_19px_8px_#4042434d] hover:scale-[1.02] transition-all w-[28%] max-tablet:w-[60%] max-mobile:w-[70%] max-smobile:w-[80%] bg-gray-100  rounded-[10px] p-[2rem] flex flex-col gap-[1rem]  cursor-default `} key={index} > 
                     <div className='border-b-[1.7px] border-[#80808090] pb-[0.5rem] ' >
                       <div>
                         <h2 className='text-[3rem] font-[500] rubik-font   ' >{plan.name}</h2>

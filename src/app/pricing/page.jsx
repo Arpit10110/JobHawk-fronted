@@ -199,6 +199,7 @@ const page = () => {
   useEffect(() => {
     initializeSDK()
     getuserplan()
+    AOS.init();
   }, [])
 
 
@@ -270,7 +271,7 @@ const page = () => {
       <LoginDrawer Dialogopen={Dialogopen}  />
 
       <div className='  flex flex-col justify-center max-tablet:mt-[2rem] max-tablet:gap-[2rem] mb-[5rem] gap-[3rem]  ' >
-          <div className='m-auto  ' >
+          <div data-aos="fade-up" data-aos-duration="3000"   className='m-auto  ' >
               <h2 className='text-[4rem] font-[500] text-gray-800 text-center rubik-font ' >Choose Your Plan</h2> 
               <h3 className='text-center font-semibold text-gray-600 text-[1.5rem] rubik-font ' >Affordable and adaptable pricing to suit your goals.</h3>
           </div>

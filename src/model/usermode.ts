@@ -14,10 +14,6 @@ const userSchema = new mongoose.Schema({
     googleId:{
         type:String,
     },
-    userimage:{
-        type:String,
-        default:"https://res.cloudinary.com/dblybkghe/image/upload/v1742805997/defaultprofile_c9wwd3.png"
-    }
 })
 
 export const UserModel = mongoose.models?.User || mongoose.model("User", userSchema)

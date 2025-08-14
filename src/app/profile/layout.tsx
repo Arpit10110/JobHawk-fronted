@@ -20,7 +20,7 @@ export default async function RootLayout({
   return (
  
     <>
-        <ProfileNavbar userImage={session.user?.image} />
+        <ProfileNavbar  />
         {children}
         <Footer/>
     </>

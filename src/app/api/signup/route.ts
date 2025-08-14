@@ -10,13 +10,12 @@ export const POST = async(req:Request)=>{
             return NextResponse.json({success:false,message:"Missing required fields"})
         }
         await connectDB()
-        const ImageUrl = "https://res.cloudinary.com/dblybkghe/image/upload/v1742805997/defaultprofile_c9wwd3.png";
         const isuser = await UserModel.findOne({email});
         if(isuser){
             return NextResponse.json({success:false,message:"User already exists. Please login"})
         }
         const hashpassword = await bcrypt.hash(password,10)
-        await UserModel.create({name,email,password:hashpassword, userimage:ImageUrl})
+        await UserModel.create({name,email,password:hashpassword})
         const email_res = await SendWelomeEmail(email)
         return NextResponse.json({success:true,message:"User created successfully",email_response:email_res.success})
     } catch (error) {
