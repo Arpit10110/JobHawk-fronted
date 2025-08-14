@@ -50,7 +50,7 @@ const Navbar = ({user}:{user?:User}) => {
                     {
                     user==null?
                         <Link  className='bg-[#2B7EFE] text-white rounded-[10px] px-[1rem] py-[0.3rem] flex items-center hover:scale-[1.03] transition-all  ' onClick={()=>setOpen(false)}    href={"/login"} prefetch>LogIn</Link>:
-                        <Link className='bg-[#2B7EFE] text-white rounded-[10px] px-[1rem] py-[0.3rem] flex items-center hover:scale-[1.03] transition-all  ' onClick={()=>setOpen(false)}   href={"/profile"} >Profile</Link>
+                        <Link className='bg-[#2B7EFE] text-white rounded-[10px] px-[1rem] py-[0.3rem] flex items-center hover:scale-[1.03] transition-all  ' onClick={()=>setOpen(false)}   href={"/profile/userinfo"} >Profile</Link>
                     }
                 </div>
             </Drawer>

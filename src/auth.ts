@@ -45,7 +45,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         const res = await axios.post(`${process.env.Frontend_Url}api/googlelogin`,{
           email:user.email,
           name:user.name,
-          googleid:user.id
+          googleid:user.id,
+          image:user.image
         })
         console.log(res)
         if(res.data.success){
