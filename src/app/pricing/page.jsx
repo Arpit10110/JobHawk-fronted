@@ -10,7 +10,8 @@ import { ToastContainer, toast } from 'react-toastify'
 import { useRouter } from 'next/navigation'
 import LoginDrawer from '@/components/LoginDrawer'
 import { ToastErrorHandler } from '@/utils/errorhandler'
-
+import AOS from 'aos';
+import 'aos/dist/aos.css'; 
 const page = () => {
   const router = useRouter()
   const cashfreeRef = useRef(null)
