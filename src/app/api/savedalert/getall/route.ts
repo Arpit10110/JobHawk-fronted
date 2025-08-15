@@ -15,7 +15,8 @@ export const GET = async()=>{
             return NextResponse.json({success:false,message:"User not found"})
         }
         const savedalert = await SavedAlert.find({})
+        return NextResponse.json({ success: true, savedalert: savedalert }, { status: 200 });
     } catch (error) {
-        return NextResponse.json({ error: 'An error occurred while processing your request.' }, { status: 500 });
+        return NextResponse.json({ error: error }, { status: 500 });
     }
 };
