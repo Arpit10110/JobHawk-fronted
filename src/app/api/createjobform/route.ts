@@ -33,12 +33,12 @@ export const submitjobform = async (req: Request) => {
       plantype
     }: JobFormRequest = await req.json();
 
-    const jobcretaedat = new Date();
-    const jobexpiry = new Date(jobcretaedat);
-    jobexpiry.setDate(jobexpiry.getDate() + 30);
+    const jobCreatedAt = new Date();
+    const jobExpiry = new Date(jobCreatedAt);
+    jobExpiry.setDate(jobExpiry.getDate() + 30);
 
-    console.log("Job created at:", jobcretaedat);
-    console.log("Job expiry date:", jobexpiry);
+    console.log("Job created at:", jobCreatedAt);
+    console.log("Job expiry date:", jobExpiry);
 
     const jobtitle: string[] = selectedJobs.map((item) => item.title);
 
@@ -51,22 +51,30 @@ export const submitjobform = async (req: Request) => {
       ampm: selectampm,
       jobnumber: selectNumberofJobs,
       jobtype: selectJobType,
-      createdAt: jobcretaedat,
-      expiryDate: jobexpiry,
+      createdAt: jobCreatedAt,
+      expiryDate: jobExpiry,
       lastSentAt: null,
       status: status,
       plantype: plantype
     });
 
-    return NextResponse.json({
-      success: true,
-      message: "Job form created successfully"
-    });
+    return NextResponse.json(
+      {
+        success: true,
+        message: "Job form created successfully"
+      },
+      { status: 201 }
+    );
   } catch (error) {
-    return NextResponse.json({
-      success: false,
-      message: "Error in creating job form",
-      error: error
-    });
+    console.error(error);
+    return NextResponse.json(
+      {
+        success: false,
+        message: "Error in creating job form",
+        error: error instanceof Error ? error.message : String(error)
+      },
+      { status: 500 }
+    );
   }
 };
+
