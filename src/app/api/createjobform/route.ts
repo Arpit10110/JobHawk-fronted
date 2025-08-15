@@ -18,7 +18,7 @@ interface JobFormRequest {
   plantype: string;
 }
 
-export const submitjobform = async (req: Request) => {
+export const POST = async (req: Request) => {
   try {
     const {
       selectedJobs,
