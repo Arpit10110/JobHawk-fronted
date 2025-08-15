@@ -22,8 +22,9 @@ const Page = () => {
   const [open, setOpen] = useState(false);
   const [Dialogopen, setDialogopen] = useState(false);
   const [IsUserLogin,setIsUserLogin] = useState(false);
-
-
+  const [UserEmail,setUserEmail] = useState<string>("");
+  const [JobPortOption,setJobPortOption] = useState<string[]>([]);
+  const [numberofjobsoption,setnumberofjobsoption] = useState<string[]>([]);
   const getuserplan = async ()=>{
     try {
       setOpen(true);
@@ -39,6 +40,17 @@ const Page = () => {
           }else{
           setOpen(false);
             SetUserCurrentPlan(res.data.data);
+            setUserEmail(res.data.user_email)
+            if(res.data.data.plan_name == "Free"){
+              setJobPortOption(Free_JobPortOption);
+              setnumberofjobsoption(Free_nojobsoption);
+            }else if(res.data.data.plan_name == "Pro"){
+              setJobPortOption(Pro_JobPortOption);
+              setnumberofjobsoption(Pro_nojobsoption);
+            }else if(res.data.data.plan_name == "Premium"){
+              setJobPortOption(Premium_JobPortOption);
+              setnumberofjobsoption(Premium_nojobsoption);
+            }
           }
       }else{
         setOpen(false);
@@ -89,10 +101,70 @@ const Page = () => {
               <h2 className='text-[1.5rem]  font-semibold px-[1.5rem] py-[0.2rem] cursor-pointer bg-gray-200 rounded-[5px]  '  >Current Plan : <span className='text-green-600' > {UserCurrentPlan?.plan_name}</span></h2>
           </div>
           }
-            <StepperForm />
+          {
+            UserCurrentPlan==null?
+            <StepperForm UserMail={UserEmail} jobportoption={[]} numberofjobsoption={[]} />:
+            <StepperForm UserMail={UserEmail} jobportoption={JobPortOption} numberofjobsoption={numberofjobsoption}/>
+          }
         </div>
     </>
   )
 }
 
 export default Page
+
+
+const Free_JobPortOption = [
+  "Foundit.in",
+  "Instahyre.com",
+]
+const Pro_JobPortOption = [
+  "Naukri.com",
+  "Foundit.in",
+  "Internshala.com",
+  "Instahyre.com",
+]
+const Premium_JobPortOption = [
+  "LinkedIn.com",
+  "Naukri.com",
+  "Foundit.in",
+  "Internshala.com",
+  "Instahyre.com",
+]
+
+const Free_nojobsoption = [
+  "1",
+  "2",
+  "3",
+  "4",
+  "5",
+]
+const Pro_nojobsoption = [
+  "1",
+  "2",
+  "3",
+  "4",
+  "5",
+  "6",
+  "7",
+  "8",
+  "9",
+  "10",
+]
+const Premium_nojobsoption = [
+  "1",
+  "2",
+  "3",
+  "4",
+  "5",
+  "6",
+  "7",
+  "8",
+  "9",
+  "10",
+  "11",
+  "12", 
+  "13",
+  "14",
+  "15",
+]

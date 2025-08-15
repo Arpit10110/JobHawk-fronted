@@ -6,18 +6,20 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { ToastContainer, toast } from 'react-toastify'
 import axios from 'axios';
 import { useRouter } from "next/navigation";
+import { ToastErrorHandler } from '@/utils/errorhandler';
 
 
-const StepperForm = () => {
+const StepperForm = ({UserMail,jobportoption,numberofjobsoption}:{UserMail:string,jobportoption:string[],numberofjobsoption:string[]}) => {
   const router = useRouter()
   const [selectedJobs, setSelectedJobs] = useState<{ title: string }[]>([]);
   const [selectedLocation, setSelectedLocation] = useState<string[]>(["Remote"]);
   const [selecteexp, setSelecteexp] = useState<string>("");
-  const [email,Setemail] = useState<string>("");
+  const [email,Setemail] = useState<string>(UserMail);
   const [selectTime, setselectTime] = useState<string>("");
   const [selectampm, setselectampm] = useState<string>("");
   const [selectNumberofJobs, setselectNumberofJobs] = useState<string>("");
   const [selectJobType, setselectJobType] = useState<string>("");
+  const [selectJobPortals, setselectJobPortals] = useState<string>("");
   const [openloader, Setopenloader] = useState(false);
 
 // step1 checker 
@@ -129,6 +131,10 @@ const StepperForm = () => {
         progress: undefined,
         theme: "light",
         });
+      return false;
+    }
+    if (selectJobPortals === ""){
+      ToastErrorHandler("Please select a job portal.")
       return false;
     }
     return true;
@@ -388,36 +394,71 @@ const handleSubmit = async()=> {
                   )}
                 />
               </div>
-              <Autocomplete
-              sx={
-                {
-                '& .MuiInputBase-input':{
-                  fontSize: '1.1rem',
-                },
-                '& .MuiFormLabel-root':{
-                  fontSize: '1.1rem',
-                  fontWeight: '600',
-                  color:"black"
+              <div className='flex w-full justify-between ' >
+                <Autocomplete
+                className='!w-[45%] '
+                sx={
+                  {
+                  '& .MuiInputBase-input':{
+                    fontSize: '1.1rem',
+                  },
+                  '& .MuiFormLabel-root':{
+                    fontSize: '1.1rem',
+                    fontWeight: '600',
+                    color:"black"
+                  }
+                  }
                 }
-                }
-              }
-                  id="numberofjobs-selector"
-                  options={numberofjobsoption}
+                    id="numberofjobs-selector"
+                    options={numberofjobsoption}
+                    getOptionLabel={(option) => option}
+                    onChange={(event, newValue) => {
+                      setselectNumberofJobs(newValue || "");
+                    }}
+                    value={selectNumberofJobs}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        variant="standard"
+                      label="Jobs Per Day"
+                      placeholder="e.g. 5"
+                        required={true}
+                      />
+                    )}
+                  />
+                <Autocomplete
+                  className='!w-[45%] '
+                  sx={
+                    {
+                    '& .MuiInputBase-input':{
+                      fontSize: '1.1rem',
+                    },
+                    '& .MuiFormLabel-root':{
+                      fontSize: '1.1rem',
+                      fontWeight: '600',
+                      color:"black"
+                    }
+                    }
+                  }
+                  id="time-selector1"
+                  options={jobportoption}
                   getOptionLabel={(option) => option}
                   onChange={(event, newValue) => {
-                    setselectNumberofJobs(newValue || "");
+                    setselectJobPortals(newValue || "");
                   }}
-                  value={selectNumberofJobs}
+                  value={selectJobPortals}
                   renderInput={(params) => (
                     <TextField
                       {...params}
                       variant="standard"
-                     label="Jobs Per Day"
-                     placeholder="e.g. 5"
+                      label="Select Job Portal"
+                      placeholder="e.g. LinkedIn.com"
                       required={true}
                     />
                   )}
                 />
+              </div>
+             
             </div>
           </Step>
           <Step> 
@@ -446,7 +487,7 @@ const handleSubmit = async()=> {
               <div className='w-[45%] flex flex-col gap-[1rem]' >
                     <p className='font-semibold text-blue-500 text-[1.2rem] ' ><span className='font-bold text-black ' >🕒 Preferred Time:</span> Daily {selectTime}:00 {selectampm}</p>
                     <p className='font-semibold text-blue-500 text-[1.2rem] ' ><span className='font-bold text-black ' >📋 Jobs Per Day:</span> {selectNumberofJobs}</p>
-                   
+                    <p className='font-semibold text-blue-500 text-[1.2rem] ' ><span className='font-bold text-black ' >🌐 Jobs Portal:</span> {selectJobPortals}</p>
               </div>
             </div>
           </div>
@@ -471,7 +512,6 @@ theme="light"
 export default StepperForm
 
 
-// Top 100 films as rated by IMDb users. http://www.imdb.com/chart/top
 const jobTitles = [
   { title: "Frontend Developer" },
   { title: "Backend Developer" },
@@ -579,14 +619,7 @@ const ampmoption= [
   "AM",
   "PM"
 ]
-const numberofjobsoption = [
-  "1",
-  "2",
-  "3",
-  "4",
-  "5",
-]
 const jobtypeoption = [
-  "Full-time",
-  "Internship",
+    "Full-time",
+    "Internship",
 ]

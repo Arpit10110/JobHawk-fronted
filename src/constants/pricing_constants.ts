@@ -97,7 +97,7 @@ export const pricingPlans: PlanType[] = [
     name: "Premium",
     price: "₹19",
     total_Price: 19.0,
-    jobsPerDay: 20,
+    jobsPerDay: 15,
     duration: "2 Months",
     emailSupport: true,
     whatsappAlert: true,
@@ -114,7 +114,7 @@ export const pricingPlans: PlanType[] = [
     customization: "Full (edit anytime)",
     punchline: "The ultimate job hunt — everything unlocked.",
     features: [
-      "Max. 20 jobs/day",
+      "Max. 15 jobs/day",
       "Valid for 2 months",
       "Email alerts",
       "WhatsApp alerts",

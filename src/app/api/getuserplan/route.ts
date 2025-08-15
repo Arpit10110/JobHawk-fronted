@@ -22,7 +22,8 @@ export const GET = async()=>{
         if(userplan){
             return NextResponse.json({
                 success:true,
-                data:userplan
+                data:userplan,
+                user_email:user_email,
             })
         }else{
             return NextResponse.json({
