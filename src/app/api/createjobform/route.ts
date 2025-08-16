@@ -1,5 +1,9 @@
 import SavedAlert from "@/model/SavedAlert_model";
 import { NextResponse } from "next/server";
+import { PlanModel } from "@/model/planmodel";
+import { UserModel } from "@/model/usermode";
+import { connectDB } from "@/db/dbconnect"; 
+import { getuser } from "@/lib/getuser"; 
 
 interface JobItem {
   title: string;
@@ -29,16 +33,32 @@ export const POST = async (req: Request) => {
       selectampm,
       selectNumberofJobs,
       selectJobType,
-      status,
-      plantype
     }: JobFormRequest = await req.json();
 
-    const jobCreatedAt = new Date();
-    const jobExpiry = new Date(jobCreatedAt);
-    jobExpiry.setDate(jobExpiry.getDate() + 30);
+    const user = await getuser();
+    if(user == null){
+      return NextResponse.json({
+        success: false,
+        message: "User not authenticated"
+      })
+    }
 
-    console.log("Job created at:", jobCreatedAt);
-    console.log("Job expiry date:", jobExpiry);
+    await connectDB();
+    const user_data = await UserModel.findOne({email:user.user?.email})
+    const plan_data = await PlanModel.findOne({plan_user_id:user_data._id});
+    if (!user_data || !plan_data) {
+      return NextResponse.json({
+        success: false,
+        message: "User or plan not found"
+      });
+    }
+
+    if(!selectedJobs || selectedJobs.length === 0 || !selectedLocation || !selecteexp || !email || !selectTime || !selectNumberofJobs || !selectJobType){
+      return NextResponse.json({
+        success: false,
+        message: "Please fill all the required fields"
+      });
+    }
 
     const jobtitle: string[] = selectedJobs.map((item) => item.title);
 
@@ -51,11 +71,13 @@ export const POST = async (req: Request) => {
       ampm: selectampm,
       jobnumber: selectNumberofJobs,
       jobtype: selectJobType,
-      createdAt: jobCreatedAt,
-      expiryDate: jobExpiry,
+      planstartdate: plan_data.plan_start_date,
+      planexpiryDate: plan_data.plan_end_date,
       lastSentAt: null,
-      status: status,
-      plantype: plantype
+      status: plan_data.plan_status,
+      plantype: plan_data.plan_name,
+      user_id: user_data._id,
+      plan_id:plan_data._id
     });
 
     return NextResponse.json(

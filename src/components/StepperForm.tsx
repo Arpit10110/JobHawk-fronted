@@ -154,7 +154,7 @@ const handleSubmit = async()=> {
       selectNumberofJobs,
       selectJobType
     });
-    const res = await axios.post(`${process.env.NEXT_PUBLIC_Backend_url}/createjobform`,{
+    const res = await axios.post("api/createjobform", {
       selectedJobs,
       selectedLocation,
       selecteexp,
@@ -163,8 +163,6 @@ const handleSubmit = async()=> {
       selectampm,
       selectNumberofJobs,
       selectJobType,
-      plantype:"free",
-      status:"active"
     })
     console.log(res)
     if(res.data.success == true){
@@ -172,6 +170,7 @@ const handleSubmit = async()=> {
     }else{
       console.log("Error occured")
       Setopenloader(false)
+      ToastErrorHandler(res.data.message)
     }
   } catch (error) {
     Setopenloader(false)
