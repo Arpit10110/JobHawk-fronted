@@ -4,7 +4,7 @@ import React from 'react'
 import Dialog from '@mui/material/Dialog';
 
 
-const CustomizeAlertDrawer = ({cancelAlert,deleteAlert,alertid,Dialogopen,AlertMessage,type,pauseAlert,resumeAlert}:{Dialogopen:boolean,AlertMessage:string,type:String,cancelAlert:()=>void,alertid:string,deleteAlert:(id:string)=>void,pauseAlert:(id:string)=>void,resumeAlert:(id:string)=>void}) => {
+const CustomizeAlertDrawer = ({cancelAlert,deleteAlert,alertid,Dialogopen,AlertMessage,type,pauseAlert,resumeAlert}:{Dialogopen:boolean,AlertMessage:string,type:string,cancelAlert:()=>void,alertid:string,deleteAlert:(id:string)=>void,pauseAlert:(id:string)=>void,resumeAlert:(id:string)=>void}) => {
 
   return (
     <>
