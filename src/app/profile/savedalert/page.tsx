@@ -10,7 +10,7 @@ import Link from 'next/link';
 import Savedalertbox from '@/components/Savedalertbox';
 import CustomizeAlertDrawer from '@/components/CustomizeAlertDrawer';
 import { ToastContainer } from 'react-toastify';
-const page = () => {
+const Page = () => {
     const [open, setOpen] = useState(true);
     const [SavedAlert,setSavedAlert] = useState([]);
     const [Numberofleftalerts, setNumberOfLeftAlerts] = useState(0);
@@ -189,4 +189,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page;
