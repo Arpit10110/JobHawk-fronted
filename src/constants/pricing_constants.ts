@@ -41,7 +41,7 @@ export const pricingPlans: PlanType[] = [
       { name: "Naukri.com", link: "https://www.naukri.com/" },
       { name: "Internshala.com", link: "https://internshala.com/student/dashboard" }
     ],
-    maxJobAlerts: 3,
+    maxJobAlerts: 2,
     customization: "Pause & Delete only",
     punchline: "Dip your toes in the job pool — free & easy.",
     features: [
