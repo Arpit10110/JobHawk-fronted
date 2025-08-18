@@ -20,6 +20,7 @@ interface JobFormRequest {
   selectJobType: string;
   status: string;
   plantype: string;
+  selectJobPortals: string;
 }
 
 export const POST = async (req: Request) => {
@@ -33,6 +34,7 @@ export const POST = async (req: Request) => {
       selectampm,
       selectNumberofJobs,
       selectJobType,
+      selectJobPortals
     }: JobFormRequest = await req.json();
 
     const user = await getuser();
@@ -71,6 +73,7 @@ export const POST = async (req: Request) => {
       ampm: selectampm,
       jobnumber: selectNumberofJobs,
       jobtype: selectJobType,
+      jobportal: selectJobPortals,
       planstartdate: plan_data.plan_start_date,
       planexpiryDate: plan_data.plan_end_date,
       lastSentAt: null,

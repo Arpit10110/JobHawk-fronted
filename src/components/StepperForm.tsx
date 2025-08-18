@@ -163,6 +163,7 @@ const handleSubmit = async()=> {
       selectampm,
       selectNumberofJobs,
       selectJobType,
+      selectJobPortals
     })
     console.log(res)
     if(res.data.success == true){

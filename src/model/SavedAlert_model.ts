@@ -33,6 +33,10 @@ const JobFormSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  jobportal: {
+    type: String,
+    required: true
+  },
   planstartdate: {
     type: Date,
     default: Date.now
