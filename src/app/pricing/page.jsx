@@ -16,15 +16,15 @@ const page = () => {
   const router = useRouter()
   const cashfreeRef = useRef(null)
   const [open, setOpen] = useState(false);
-  const [UserCurrnentPlan,SetUserCurrnentPlan] = useState(null);
+  const [UserCurrnentPlan,SetUserCurrnentPlan] = useState("None");
   const [IsUserLogin,setIsUserLogin] = useState(false);
   const [Dialogopen, setDialogopen] = useState(false);
   
   const initializeSDK = async () => {
     try {
     // Use "production" in live
-    const instance = await load({ mode: "production" })
-    // const instance = await load({ mode: "sandbox" })
+    // const instance = await load({ mode: "production" })
+    const instance = await load({ mode: "sandbox" })
     cashfreeRef.current = instance
     } catch (e) {
     console.error("Cashfree SDK load failed", e)
@@ -174,7 +174,10 @@ const page = () => {
       if(res.data.success){
         setOpen(false);
         setIsUserLogin(true);
-        SetUserCurrnentPlan(res.data.data);
+        if(res.data.data != null){
+          const p_name = res.data.data.plan_name;
+          SetUserCurrnentPlan(p_name);
+        }
       }else{
         if(res.data.message=="Please Login First"){
           setIsUserLogin(false);
@@ -210,6 +213,7 @@ const page = () => {
         plan:plan
       }) 
       if(res.data.success){
+        getuserplan();
          toast.success("Plan Purchased Successfully", {
                 position: "top-right",
                 autoClose: 5000,
@@ -277,7 +281,7 @@ const page = () => {
               <h3 className='text-center font-semibold text-gray-600 text-[1.5rem] rubik-font ' >Affordable and adaptable pricing to suit your goals.</h3>
           </div>
           <div className='flex w-full justify-around mt-[4rem] mb-[10rem] max-tablet:mb-[5rem] flex-wrap gap-y-[4rem] items-start ' >
-            <PlaningCard handler={handler} />
+            <PlaningCard handler={handler} currentPlan={UserCurrnentPlan} />
           </div>
       </div>
       <Footer/>

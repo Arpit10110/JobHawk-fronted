@@ -14,6 +14,12 @@ export const POST = async(req:Request)=>{
                 error:"Please login first"
             })
         }
+        if(!plan){
+            return NextResponse.json({
+                success:false,
+                error:"Plan not found"
+            })
+        }
         await connectDB();
         const user_data = user.user;
         const user_fulldata = await UserModel.findOne( {email:user_data?.email} ) ;
@@ -27,14 +33,29 @@ export const POST = async(req:Request)=>{
             end_date.setDate(end_date.getDate() + 30); 
         }
 
-        await PlanModel.create({
-            plan_name:plan.name,
-            plan_status:"active",
-            plan_start_date:new Date(),
-            plan_end_date:end_date,
-            plan_user_id:user_fulldata._id,
-            plan_price:plan.total_Price
-        })
+        const existing_plan = await PlanModel.findOne({plan_user_id:user_fulldata._id})
+        if(existing_plan){
+            // update plan name,starting date and end date and price
+            await PlanModel.updateOne({plan_user_id:user_fulldata._id},{
+                $set:{
+                    plan_name:plan.name,
+                    plan_status:"active",
+                    plan_start_date:new Date(),
+                    plan_end_date:end_date,
+                    plan_price:plan.total_Price
+                }
+            })
+        }else{
+            await PlanModel.create({
+                plan_name:plan.name,
+                plan_status:"active",
+                plan_start_date:new Date(),
+                plan_end_date:end_date,
+                plan_user_id:user_fulldata._id,
+                plan_price:plan.total_Price
+            })
+        }
+
         if(user_data?.email){
             await SendPlanPurchaseEmail(user_fulldata.email,plan.name,plan.total_Price,plan_start_date.toString(),end_date.toString()) 
         }

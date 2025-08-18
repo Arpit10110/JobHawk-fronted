@@ -44,28 +44,23 @@ const welcomeHtml = () => {
           
           return `
           
-          <!doctype html> <html lang="en"> <head> <meta charSet="utf-8" /> <meta name="viewport" content="width=device-width,initial-scale=1" /> <title>JobHawk Plan Confirmation</title> <style> body { margin:0; background:#f5f7fb; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen,Ubuntu,Cantarell,'Helvetica Neue',Arial,sans-serif; color:#1f2937; } .container { max-width:560px; margin:0 auto; padding:24px 16px; } .card { background:#fff; border-radius:12px; box-shadow:0 6px 24px rgba(16,24,40,0.08); overflow:hidden; } .header { background:linear-gradient(135deg,#2858ff,#6aa0ff); color:#fff; padding:20px 24px; } .brand { font-weight:700; font-size:18px; letter-spacing:0.3px; } .content { padding:24px; } h1 { margin:0 0 8px; font-size:20px; color:#111827; } p { margin:8px 0; line-height:1.55; color:#374151; } .summary { margin:16px 0; background:#f8fafc; border:1px solid #e5e7eb; border-radius:10px; padding:16px; } .row { display:flex; justify-content:space-between; gap:12px; margin:8px 0; } .label { color:#6b7280; font-size:13px; } .value { color:#111827; font-weight:600; } .cta { margin-top:20px; display:flex; flex-wrap:wrap; } .button { display:inline-block; text-decoration:none; padding:12px 18px; border-radius:10px; font-weight:700; font-size:14px; } .primary { background:#2858ff; color:#fff !important; } .secondary { background:#eef2ff; color:#1f3fff !important; border:1px solid #c7d2fe; } .spacer { display:inline-block; width:12px; height:12px; line-height:12px; } .muted { color:#6b7280; font-size:12px; } .footer { text-align:center; color:#9ca3af; font-size:12px; padding:16px 8px; } @media (max-width:480px) { .content { padding:20px; } .row { display:block; } } </style> </head> <body> <div class="container"> <div class="card"> <div class="header"> <div class="brand">JobHawk</div> </div> <div class="content"> <h1>Your plan is active 🎉</h1> <p>Thank you for choosing JobHawk. Your subscription has been activated successfully.</p>
-          text
+          <!doctype html> <html lang="en"> <head> <meta charSet="utf-8" /> <meta name="viewport" content="width=device-width,initial-scale=1" /> <title>JobHawk Plan Confirmation</title> <style> body { margin:0; background:#f5f7fb; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen,Ubuntu,Cantarell,'Helvetica Neue',Arial,sans-serif; color:#1f2937; } .container { max-width:560px; margin:0 auto; padding:24px 16px; } .card { background:#fff; border-radius:12px; box-shadow:0 6px 24px rgba(16,24,40,0.08); overflow:hidden; } .header { background:linear-gradient(135deg,#2858ff,#6aa0ff); color:#fff; padding:20px 24px; } .brand { font-weight:700; font-size:18px; letter-spacing:0.3px; } .content { padding:24px; } h1 { margin:0 0 8px; font-size:20px; color:#111827; } p { margin:8px 0; line-height:1.55; color:#374151; } .summary { margin:16px 0; background:#f8fafc; border:1px solid #e5e7eb; border-radius:10px; padding:16px; } .row { display:flex; justify-content:space-between; gap:12px; margin:8px 0; } .label { color:#6b7280; font-size:13px; margin-right:5px } .value { color:#111827; font-weight:600; } .value-active{color: #01A63F; font-weight:600;} .cta { margin-top:20px; display:flex; flex-wrap:wrap; } .button { display:inline-block; text-decoration:none; padding:12px 18px; border-radius:10px; font-weight:700; font-size:14px; } .primary { background:#2858ff; color:#fff !important; } .secondary { background:#eef2ff; color:#1f3fff !important; border:1px solid #c7d2fe; } .spacer { display:inline-block; width:12px; height:12px; line-height:12px; } .muted { color:#6b7280; font-size:12px; } .footer { text-align:center; color:#9ca3af; font-size:12px; padding:16px 8px; } @media (max-width:480px) { .content { padding:20px; } .row { display:block; } } </style> </head> <body> <div class="container"> <div class="card"> <div class="header"> <div class="brand">JobHawk</div> </div> <div class="content"> <h1>Your plan is active 🎉</h1> <p>Thank you for choosing JobHawk. Your subscription has been activated successfully.</p>
+          
                   <div class="summary">
                     <div class="row">
-                      <div class="label">Plan</div>
-                      <div class="value">${plan_name || '-'}</div>
+                      <h2 class="label">Plan <span class="value" >${plan_name || '-'}</span></h2>
                     </div>
                     <div class="row">
-                      <div class="label">Price</div>
-                      <div class="value">${priceStr}</div>
+                     <h2 class="label">Price <span class="value" >${priceStr}</span></h2>
                     </div>
                     <div class="row">
-                      <div class="label">Start date</div>
-                      <div class="value">${startStr}</div>
+                     <h2 class="label">Start date <span class="value" >${startStr}</span></h2>
                     </div>
                     <div class="row">
-                      <div class="label">End date</div>
-                      <div class="value">${endStr}</div>
+                      <h2 class="label">End date <span class="value" >${endStr}</span></h2>
                     </div>
                     <div class="row">
-                      <div class="label">Status</div>
-                      <div class="value">Active</div>
+                     <h2 class="label">Status <span class="value-active" >Active</span></h2>
                     </div>
                   </div>
           

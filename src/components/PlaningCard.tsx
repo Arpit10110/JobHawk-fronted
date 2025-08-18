@@ -27,8 +27,7 @@ interface PlanType {
   missingportals?: PortalType[];
 }
 
-const PlaningCard = ({handler}:{handler: (plan: PlanType) => void}) => {
-  
+const PlaningCard = ({handler,currentPlan}:{currentPlan:string,handler: (plan: PlanType) => void}) => {
   return (
     <>
        {
@@ -101,11 +100,49 @@ const PlaningCard = ({handler}:{handler: (plan: PlanType) => void}) => {
                           
                       </div>
                     </div>
-                    <button onClick={()=>{
-                      handler(plan)
-                    }}
-                    className='bg-blue-600 cursor-pointer text-white rounded-[5px] py-[0.5rem] text-[1.5rem] font-semibold w-[100%] mt-[1.5rem] '
-                    > Start With {plan.name}</button>
+                    {
+                      currentPlan =="None"?
+                        <button
+                        onClick={() => handler(plan)}
+                        className="bg-blue-600 cursor-pointer text-white rounded-[5px] py-[0.5rem] text-[1.5rem] font-semibold w-[100%] mt-[1.5rem]"
+                      >
+                        Start with {plan.name}
+                      </button>:
+                      <>
+                        {
+                      currentPlan === plan.name ? (
+                        <h2 className="bg-green-600 cursor-default text-white rounded-[5px] py-[0.5rem] text-[1.5rem] font-semibold w-[100%] mt-[1.5rem] text-center ">
+                          Current Active Plan
+                        </h2>
+                      ) : currentPlan === "Free" && plan.name === "Pro" ? (
+                        <button
+                          onClick={() => handler(plan)}
+                          className="bg-blue-600 cursor-pointer text-white rounded-[5px] py-[0.5rem] text-[1.5rem] font-semibold w-[100%] mt-[1.5rem]"
+                        >
+                          Upgrade to Pro
+                        </button>
+                      ) : currentPlan === "Free" && plan.name === "Premium" ? (
+                        <button
+                          onClick={() => handler(plan)}
+                          className="bg-blue-600 cursor-pointer text-white rounded-[5px] py-[0.5rem] text-[1.5rem] font-semibold w-[100%] mt-[1.5rem]"
+                        >
+                          Upgrade to Premium
+                        </button>
+                      ) : currentPlan === "Pro" && plan.name === "Premium" ? (
+                        <button
+                          onClick={() => handler(plan)}
+                          className="bg-blue-600 cursor-pointer text-white rounded-[5px] py-[0.5rem] text-[1.5rem] font-semibold w-[100%] mt-[1.5rem]"
+                        >
+                          Upgrade to Premium
+                        </button>
+                      ) : (
+                        <h2 className="bg-gray-600 cursor-default text-white rounded-[5px] py-[0.5rem] text-[1.5rem] font-semibold w-[100%] mt-[1.5rem] text-center ">
+                          You already have this benefit
+                        </h2>
+                      )
+                    }
+                      </>
+                    }
                 </div>
             )
         }) 
