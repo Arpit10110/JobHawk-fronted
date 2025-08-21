@@ -23,8 +23,8 @@ const page = () => {
   const initializeSDK = async () => {
     try {
     // Use "production" in live
-    // const instance = await load({ mode: "production" })
-    const instance = await load({ mode: "sandbox" })
+    const instance = await load({ mode: "production" })
+    // const instance = await load({ mode: "sandbox" })
     cashfreeRef.current = instance
     } catch (e) {
     console.error("Cashfree SDK load failed", e)
