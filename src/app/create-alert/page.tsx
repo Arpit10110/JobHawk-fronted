@@ -126,7 +126,7 @@ const Pro_JobPortOption = [
 ]
 const Premium_JobPortOption = [
   "LinkedIn.com",
-  "Naukri.com",
+  "Naukari.com",
   "Foundit.in",
   "Internshala.com",
   "Instahyre.com",
