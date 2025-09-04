@@ -5,19 +5,16 @@ import Section4 from '../components/Section4'
 import Section5 from '@/components/Section5'
 import Footer from '@/components/Footer'
 import Section1 from '@/components/home/Section1'
-import SmoothScrolling from '@/components/SmoothScrolling'
 const page = async() => {
   
   return (
     <>
-    <SmoothScrolling>
     <Section1/>
     <Section2/>
     <Section3/>
     <Section4/>
     <Section5/>
     <Footer/>
-    </SmoothScrolling>
     </>
   )
 }
