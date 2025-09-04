@@ -2,7 +2,6 @@
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import MenuIcon from '@mui/icons-material/Menu';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { Drawer } from '@mui/material';
 type User = {
     id: string;

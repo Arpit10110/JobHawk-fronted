@@ -3,7 +3,7 @@ import Marquee from "react-fast-marquee";
 
 const Section2 = () => {
   return (
-    <div className="bg-[#409fff30]  py-[2rem]">
+    <div className="bg-[#00000009]  py-[2rem]">
       <Marquee pauseOnHover gradient={false} speed={70}>
         <h2 className="text-[1.8rem] ml-[5rem] font-semibold ">📬 Daily Job Alerts</h2>
         <h2 className="text-[1.8rem] ml-[5rem] font-semibold ">⚡ Smart Automation</h2>
