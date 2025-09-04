@@ -2,6 +2,7 @@
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import MenuIcon from '@mui/icons-material/Menu';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { Drawer } from '@mui/material';
 type User = {
     id: string;
@@ -32,8 +33,8 @@ const Navbar = ({user}:{user?:User}) => {
 
                 {
                     user==null?
-                    <Link  className='bg-[#2B7EFE] text-white rounded-[10px] px-[1rem] py-[0.3rem] flex items-center hover:scale-[1.03] transition-all  '  href={"/login"} prefetch>LogIn</Link>:
-                    <Link className='bg-[#2B7EFE] text-white rounded-[10px] px-[1rem] py-[0.3rem] flex items-center hover:scale-[1.03] transition-all  ' href={"/profile/userinfo"} >Profile</Link>
+                    <Link  className='bg-blue-500 text-white rounded-[10px]  px-[1rem] py-[0.2rem] flex items-center hover:scale-[1.03] transition-all  '  href={"/login"} prefetch>Get Started  </Link>:
+                    <Link className='bg-blue-500 text-white rounded-[10px] px-[1rem] py-[0.3rem] flex items-center hover:scale-[1.03] transition-all  ' href={"/profile/userinfo"} >Profile</Link>
                 }
             </div>
             <div className='hidden max-mobile:inline-block' >
