@@ -19,13 +19,13 @@ function createData(
   }
   
   const rows = [
-    createData('Jobs per Day', '5', '10', '20'),
-    createData('Email Timing', 'Fixed (default)', 'Fully Custom', 'Fully Custom'),
+    createData('Jobs per Day', '5', '10', '15'),
+    createData('Job Portals', 'Two', 'Four', 'Five'),
     createData('Validity', '1 Month', '1 Month', '2 Months'),
-    createData('Priority Alerts', '❌', '❌', '✅'),
-    createData('Email Delivery', '✅ Included', '✅ Included', '✅ Included'),
-    // createData('Platforms Supported', 'Naukri (for now)', 'Naukri + more soon', 'Naukri + more soon'),
-    createData('Price', '₹0', '₹9', '₹15'),
+    createData('Total Alerts', 'Two', 'Six', 'Ten'),
+    createData('Email Delivery', '✅', '✅', '✅'),
+    createData('Watsapp Support', '❌', '❌', '✅'),
+    createData('Price', '₹0', '₹9', '₹19'),
   ];
   
 
@@ -43,7 +43,7 @@ const Section4 = () => {
                               <TableCell className='!text-[1.5rem] !text-blue-600 !text-center !font-bold ' >Feature</TableCell>
                               <TableCell className='!text-[1.5rem] !text-blue-600 !text-center !font-bold '  >Free</TableCell>
                               <TableCell className='!text-[1.5rem] !text-blue-600 !text-center !font-bold ' >Pro</TableCell>
-                              <TableCell className='!text-[1.5rem] !text-blue-600 !text-center !font-bold ' >Starter</TableCell>
+                              <TableCell className='!text-[1.5rem] !text-blue-600 !text-center !font-bold ' >Premium</TableCell>
                           </TableRow>
                           </TableHead>
                           <TableBody>
