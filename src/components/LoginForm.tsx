@@ -1,0 +1,70 @@
+"use client"
+import axios from 'axios'
+import React from 'react'
+import { useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { ToastContainer } from 'react-toastify'
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
+import { ToastErrorHandler } from '@/utils/errorhandler'
+import Link from 'next/link'
+
+const LoginForm = () => {
+  const router = useRouter();
+  const [email,setemail] = useState('')
+  const [password,setpassword] = useState('')
+  const [open, setOpen] = React.useState(false);
+
+  const handleloginsubmit = async(e:React.FormEvent<HTMLFormElement>)=>{
+    e.preventDefault()
+    setOpen(true);
+    try {
+      const res = await axios.post("api/login",{
+        email,password
+      })
+      console.log(res)
+      if(res.data.success){
+        router.push("/")
+        router.refresh();
+      }else{
+    setOpen(false);
+    ToastErrorHandler(res.data.message)
+      }
+    } catch (error) {
+      console.log(error)
+      setOpen(false)
+    ToastErrorHandler()
+
+    }
+  }
+  return (
+    <>
+        <Backdrop
+        sx={(theme) => ({ color: '#fff', zIndex: theme.zIndex.drawer + 1 })}
+        open={open}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
+    <form onSubmit={handleloginsubmit} className='w-full flex flex-col gap-[1rem]  ' >
+        <input value={email} onChange={(e)=>setemail(e.target.value)} type="email" className='w-full bg-white text-[1.3rem] p-[0.4rem] rounded-[5px] text-black border-[1px] border-gray-300 font-semibold  ' placeholder='Enter the email' required/>
+        <input value={password} onChange={(e)=>setpassword(e.target.value)}  type="password" className='w-full bg-white text-[1.3rem] p-[0.4rem] rounded-[5px] text-black border-[1px] border-gray-300 font-semibold  ' placeholder='Enter the password' required/>
+        <Link href={"/password/forgetpassword"} className="text-[1.3rem] text-blue-500 underline " >Forgot password?</Link>
+        <button className='bg-gray-800   cursor-pointer hover:scale-[1.02] transition-all  w-[100%] mt-[0.5rem] m-auto py-[0.3rem] text-[1.5rem] text-white font-bold rounded-[5px] ' >LogIn</button> 
+    </form>
+        <ToastContainer
+            position="top-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick={false}
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+            />
+</>
+  )
+}
+
+export default LoginForm
